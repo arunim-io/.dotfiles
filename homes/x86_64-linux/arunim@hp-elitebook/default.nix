@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   imports = [
     ./coding.nix
     ./shell.nix
@@ -14,7 +14,7 @@
 
     packages = with pkgs; [
       zoom-us
-      discord
+      webcord
       topgrade
     ];
   };
@@ -33,6 +33,10 @@
     iconTheme = {
       package = pkgs.gnome.adwaita-icon-theme;
       name = "Adwaita-dark";
+    };
+    theme = {
+      name = "Adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
     };
     gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
     gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;

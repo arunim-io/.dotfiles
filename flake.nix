@@ -37,13 +37,13 @@
     inherit inputs;
     src = ./.;
 
-    channels-config = {
-      allowUnfree = true;
-    };
+    channels-config.allowUnfree = true;
 
     overlays = [
       neovim-nightly-overlay.overlay
       hypr-contrib.overlays.default
     ];
+
+    systems.modules = [ home-manager.nixosModules.home-manager ];
   };
 }
