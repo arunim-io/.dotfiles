@@ -1,44 +1,34 @@
-{ pkgs, lib, ... }: {
-  imports = [
-    ./coding.nix
-    ./shell.nix
-    ./hyprland
-  ];
-
-  nixpkgs.config.allowUnfree = true;
+{ pkgs, ... }: {
+  mods = {
+    home.enable = true;
+    theming.enable = true;
+    wm.hyprland.enable = true;
+    shell = {
+      enable = true;
+      direnv.enable = true;
+      git.enable = true;
+    };
+    apps = {
+      vscode.enable = true;
+      nvim.enable = true;
+    };
+  };
 
   home = {
     stateVersion = "23.11";
-    username = "arunim";
-    homeDirectory = "/home/arunim";
 
     packages = with pkgs; [
       zoom-us
       webcord
       topgrade
+      bun
+      gcc
+      gnumake
     ];
   };
 
-  programs = {
-    home-manager.enable = true;
-
-    firefox = {
-      enable = true;
-      package = pkgs.firefox-bin;
-    };
-  };
-
-  gtk = {
+  programs.firefox = {
     enable = true;
-    iconTheme = {
-      package = pkgs.gnome.adwaita-icon-theme;
-      name = "Adwaita-dark";
-    };
-    theme = {
-      name = "Adw-gtk3-dark";
-      package = pkgs.adw-gtk3;
-    };
-    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+    package = pkgs.firefox-bin;
   };
 }

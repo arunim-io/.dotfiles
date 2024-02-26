@@ -1,18 +1,23 @@
-{ pkgs, inputs, system, ... }: {
-  imports = [ ./direnv ./git.nix ];
-  home.packages = with pkgs; [
-    bun
-    gcc
-    gnumake
-  ];
+{ lib, config, pkgs, inputs, system, ... }:
 
-  programs = {
-    vscode = {
-      enable = true;
-      package = pkgs.vscode.fhs;
+let
+  cfg = config.mods.apps.nvim;
+in
+
+with lib;
+
+{
+  options.mods.apps.nvim = {
+    enable = mkOption {
+      default = false;
+      example = true;
+      type = types.bool;
+      description = "Whether to configure neovim using home-manager.";
     };
+  };
 
-    neovim = {
+  config = mkIf cfg.enable {
+    programs.neovim = {
       enable = true;
       package = inputs.neovim-nightly-overlay.packages.${system}.neovim;
       defaultEditor = true;
