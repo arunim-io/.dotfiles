@@ -1,25 +1,31 @@
 { ... }: {
-  imports = [
-    ./hardware-configuration.nix
-    ./system
-    ./virt.nix
-    ./hyprland.nix
-    ./podman.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
-  networking.hostName = "hp-elitebook";
-  system.stateVersion = "23.11";
-
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
+  mods = {
+    system = {
+      enable = true;
+      hostName = "hp-elitebook";
+      boot.enable = true;
+      fonts.enable = true;
+      locale.enable = true;
+      time.enable = true;
     };
-    settings = {
-      auto-optimise-store = true;
-      trusted-users = [ "arunim" ];
-      experimental-features = [ "nix-command" "flakes" ];
+    user.enable = true;
+    hardware.sound.enable = true;
+    hardware.bluetooth.enable = true;
+    services = {
+      printing.enable = true;
+      flatpak.enable = true;
     };
+    tools.ssh.enable = true;
+    virt = {
+      enable = true;
+      podman.enable = true;
+    };
+    wm.hyprland.enable = true;
   };
+
+  services.input-remapper.enable = true;
+
+  system.stateVersion = "23.11";
 }
