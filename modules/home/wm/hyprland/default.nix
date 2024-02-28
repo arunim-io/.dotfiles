@@ -26,6 +26,8 @@ with lib;
       wezterm
     ];
 
+    programs.ags.enable = true;
+
     wayland.windowManager.hyprland = {
       enable = true;
       settings = {

@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
+  imports = [ inputs.ags.homeManagerModules.default ];
+
   mods = {
     home.enable = true;
     theming.enable = true;

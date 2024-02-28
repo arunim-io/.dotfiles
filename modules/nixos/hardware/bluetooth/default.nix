@@ -20,7 +20,11 @@ with lib;
     hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;
-      settings.General.Enable = "Source,Sink,Media,Socket";
+      settings.General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+      };
+
     };
 
     environment.etc."wireplumber/bluetooth.lua.d/51-bluez-config.lua" = {

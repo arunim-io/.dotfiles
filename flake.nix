@@ -20,6 +20,7 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ags.url = "github:Aylur/ags";
   };
 
   nixConfig = {
@@ -43,7 +44,5 @@
       neovim-nightly-overlay.overlay
       hypr-contrib.overlays.default
     ];
-
-    systems.modules = [ home-manager.nixosModules.home-manager ];
   };
 }

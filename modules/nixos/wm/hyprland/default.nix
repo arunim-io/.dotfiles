@@ -19,7 +19,7 @@ with lib;
   config = mkIf cfg.enable {
     environment = {
       sessionVariables.NIXOS_OZONE_WL = "1";
-      systemPackages = with pkgs; [ polkit_gnome ];
+      systemPackages = with pkgs; [ polkit_gnome gnome.gnome-bluetooth libdbusmenu-gtk3 ];
     };
 
     programs.hyprland = {
@@ -32,6 +32,14 @@ with lib;
     services = {
       gnome.gnome-keyring.enable = true;
       blueman.enable = true;
+      pipewire.pulse.enable = true;
+      upower = {
+        enable = true;
+        percentageLow = 25;
+        percentageCritical = 10;
+        percentageAction = 5;
+      };
+      gvfs.enable = true;
     };
 
     mods.apps.thunar.enable = true;
