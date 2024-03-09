@@ -2,6 +2,7 @@
   exec-once = with pkgs; [
     "${polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
     "${networkmanagerapplet}/bin/nm-applet"
+    "${dunst}/bin/dunst"
     "ags"
   ];
 
