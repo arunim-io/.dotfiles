@@ -35,8 +35,8 @@ with lib;
       {
         enable = true;
         iconTheme = {
-          package = pkgs.gnome.adwaita-icon-theme;
-          name = "Adwaita-dark";
+          package = pkgs.papirus-icon-theme;
+          name = "Papirus-Dark";
         };
         theme = {
           name = "adw-gtk3-dark";

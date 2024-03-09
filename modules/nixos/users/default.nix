@@ -53,6 +53,7 @@ with lib;
   };
 
   config = mkIf cfg.enable {
+    nix.settings.trusted-users = [ cfg.username ];
     users.users.${cfg.username} = {
       inherit (cfg) shell;
 
