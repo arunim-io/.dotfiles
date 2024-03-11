@@ -1,5 +1,8 @@
 { pkgs, inputs, ... }: {
-  imports = [ inputs.ags.homeManagerModules.default ];
+  imports = with inputs; [
+    ags.homeManagerModules.default
+    spicetify.homeManagerModule
+  ];
 
   mods = {
     home.enable = true;
@@ -29,8 +32,27 @@
     ];
   };
 
-  programs.firefox = {
-    enable = true;
-    package = pkgs.firefox-bin;
+  programs = {
+    firefox = {
+      enable = true;
+      package = pkgs.firefox-bin;
+    };
+
+    spicetify =
+      let
+        inherit (inputs.spicetify.packages.${pkgs.system}.default) apps extensions;
+      in
+      {
+        enable = true;
+        enabledCustomApps = with apps; [
+          marketplace
+          lyrics-plus
+        ];
+        enabledExtensions = with extensions; [
+          adblock
+          volumePercentage
+          fullAlbumDate
+        ];
+      };
   };
 }

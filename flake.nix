@@ -21,6 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags.url = "github:Aylur/ags";
+    spicetify.url = "github:the-argus/spicetify-nix";
   };
 
   nixConfig = {

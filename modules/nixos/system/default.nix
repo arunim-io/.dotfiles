@@ -43,7 +43,6 @@ with lib;
           auto-optimise-store = true;
           experimental-features = [
             "auto-allocate-uids"
-            "configurable-impure-env"
             "nix-command"
             "flakes"
             "repl-flake"
