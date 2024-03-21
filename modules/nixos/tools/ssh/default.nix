@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 
 let
   cfg = config.mods.tools.ssh;
@@ -25,7 +25,7 @@ with lib;
     programs.gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
-      pinentryFlavor = "gnome3";
+      pinentryPackage = pkgs.pinentry-gnome3;
     };
   };
 }
