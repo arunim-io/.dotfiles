@@ -23,7 +23,6 @@ with lib;
       networkmanagerapplet
       pavucontrol
       wofi
-      wezterm
       brightnessctl
     ];
 
@@ -36,5 +35,7 @@ with lib;
       enable = true;
       settings = import ./config.nix { inherit pkgs; };
     };
+
+    mods.apps.wezterm.enable = true;
   };
 }
