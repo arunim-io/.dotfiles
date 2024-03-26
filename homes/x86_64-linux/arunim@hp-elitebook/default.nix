@@ -14,8 +14,10 @@
       git.enable = true;
     };
     apps = {
+      firefox.enable = true;
       vscode.enable = true;
       nvim.enable = true;
+      spotify.enable = true;
     };
   };
 
@@ -30,29 +32,5 @@
       gcc
       gnumake
     ];
-  };
-
-  programs = {
-    firefox = {
-      enable = true;
-      package = pkgs.firefox-bin;
-    };
-
-    spicetify =
-      let
-        inherit (inputs.spicetify.packages.${pkgs.system}.default) apps extensions;
-      in
-      {
-        enable = true;
-        enabledCustomApps = with apps; [
-          marketplace
-          lyrics-plus
-        ];
-        enabledExtensions = with extensions; [
-          adblock
-          volumePercentage
-          fullAlbumDate
-        ];
-      };
   };
 }
