@@ -15,9 +15,11 @@
     };
     apps = {
       firefox.enable = true;
+      spotify.enable = true;
       vscode.enable = true;
       nvim.enable = true;
-      spotify.enable = true;
+      wezterm.enable = true;
+      foot.enable = true;
     };
   };
 
