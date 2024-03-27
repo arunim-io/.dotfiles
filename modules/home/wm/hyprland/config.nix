@@ -1,4 +1,4 @@
-{ pkgs }: {
+{ pkgs, cfg }: {
   exec-once = with pkgs; [
     "${polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
     "${networkmanagerapplet}/bin/nm-applet"
@@ -121,7 +121,7 @@
       "$mod, up, movefocus, u"
       "$mod, down, movefocus, d"
 
-      "$mod, RETURN, exec, wezterm"
+      "$mod, RETURN, exec, ${cfg.defaultTerminal}"
       "$mod, C, exec, code"
       "$mod, D, exec, ags --toggle-window 'app-launcher'"
       "$mod, E, exec, thunar"

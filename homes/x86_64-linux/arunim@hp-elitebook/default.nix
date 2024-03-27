@@ -19,7 +19,6 @@
       vscode.enable = true;
       nvim.enable = true;
       wezterm.enable = true;
-      foot.enable = true;
     };
   };
 

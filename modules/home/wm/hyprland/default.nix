@@ -14,6 +14,12 @@ with lib;
       type = types.bool;
       description = "Whether to configure hyprland using home-manager.";
     };
+    defaultTerminal = mkOption {
+      default = "foot";
+      example = literalExpression "wezterm";
+      type = types.enum [ "wezterm" "foot" ];
+      description = "The terminal to use with hyprland.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -33,7 +39,9 @@ with lib;
 
     wayland.windowManager.hyprland = {
       enable = true;
-      settings = import ./config.nix { inherit pkgs; };
+      settings = import ./config.nix { inherit pkgs cfg; };
     };
+
+    mods.apps.${cfg.defaultTerminal}.enable = true;
   };
 }
