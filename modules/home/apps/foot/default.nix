@@ -28,6 +28,10 @@ with lib;
           bold-text-in-bright = true;
         };
         mouse.hide-when-typing = true;
+        key-bindings = {
+          spawn-terminal = "Control+t";
+          fullscreen = "F11";
+        };
       };
     };
   };
