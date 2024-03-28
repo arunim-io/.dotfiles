@@ -18,10 +18,6 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    home.file.terafox-theme = {
-      source = ./terafox.fish;
-      target = "./.config/fish/conf.d/terafox.fish";
-    };
     programs.fish = {
       enable = true;
       plugins = [

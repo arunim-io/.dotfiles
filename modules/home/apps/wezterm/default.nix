@@ -19,8 +19,14 @@ with lib;
   config = mkIf cfg.enable {
     programs.wezterm = {
       enable = true;
-      colorSchemes.terafox = (importTOML ./terafox-theme.toml).colors;
-      extraConfig = builtins.readFile ./config.lua;
+      extraConfig = /* lua */ ''
+        local config = wezterm.config_builder() or {}
+
+        config.use_fancy_tab_bar = false
+        config.hide_tab_bar_if_only_one_tab = true
+
+        return config
+      '';
     };
   };
 }
