@@ -1,0 +1,34 @@
+simplified_ui true
+
+keybinds {
+  normal clear-defaults=true {
+    unbind "Ctrl b"
+    bind "Ctrl f" { SwitchToMode "Tmux"; }
+
+    bind "Alt n" { NewPane; }
+    bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
+    bind "Alt w" { ToggleFloatingPanes; }
+    bind "Alt t" { NewTab; }
+    bind "Alt Left" { MoveFocus "Left"; }
+    bind "Alt Right" { MoveFocus "Right"; }
+    bind "Alt Down" { MoveFocus "Down"; }
+    bind "Alt Up" { MoveFocus "Up"; }
+    bind "Alt `" { GoToNextTab; }
+    bind "Alt =" { Resize "Increase"; } // zellij wasn't recoginizing + so I had to use =
+    bind "Alt -" { Resize "Decrease"; }
+    bind "Alt ," { NextSwapLayout; }
+  }
+  tmux clear-defaults=true {
+    bind "Ctrl f" { Write 2; SwitchToMode "Normal"; }
+    bind "Esc" { SwitchToMode "Normal"; }
+    bind "l" { SwitchToMode "Locked"; }
+    bind "p" { SwitchToMode "Pane"; }
+    bind "t" { SwitchToMode "Tab"; }
+    bind "r" { SwitchToMode "Resize"; }
+    bind "m" { SwitchToMode "Move"; }
+    bind "s" { SwitchToMode "Scroll"; }
+    bind "o" { SwitchToMode "Session"; }
+    bind "%" { NewPane "Right"; SwitchToMode "Normal"; }
+    bind "\"" { NewPane "Down"; SwitchToMode "Normal"; }
+  }
+}
