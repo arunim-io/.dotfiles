@@ -1,6 +1,8 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
 let
+  inherit (inputs) nixpkgs;
+
   cfg = config.mods.system;
 in
 
@@ -33,22 +35,7 @@ with lib;
 
   config = mkIf cfg.enable
     {
-      nix = {
-        gc = {
-          automatic = true;
-          dates = "weekly";
-          options = "--delete-older-than 7d";
-        };
-        settings = {
-          auto-optimise-store = true;
-          experimental-features = [
-            "auto-allocate-uids"
-            "nix-command"
-            "flakes"
-            "repl-flake"
-          ];
-        };
-      };
+      environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
 
       environment = {
         inherit (cfg) shells;
@@ -66,6 +53,26 @@ with lib;
           nettools
           inxi
         ]);
+      };
+
+      nix = {
+        channel.enable = false;
+        gc = {
+          automatic = true;
+          dates = "weekly";
+          options = "--delete-older-than 7d";
+        };
+        registry.nixpkgs.flake = nixpkgs;
+        settings = {
+          auto-optimise-store = true;
+          experimental-features = [
+            "auto-allocate-uids"
+            "nix-command"
+            "flakes"
+            "repl-flake"
+          ];
+          nix-path = mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
+        };
       };
     };
 }
