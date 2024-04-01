@@ -66,6 +66,23 @@ with lib;
         nodePackages.prettier
         # toml
         taplo
+        # golang
+        go
+        gofumpt
+        gotools
+        golines
+        gomodifytags
+        gotests
+        gotestsum
+        iferr
+        impl
+        reftools
+        delve
+        ginkgo
+        richgo
+        gotestsum
+        govulncheck
+        (callPackage ../../../../packages/go-enum { })
       ];
     };
   };
