@@ -82,7 +82,7 @@ with lib;
         richgo
         gotestsum
         govulncheck
-        (callPackage ../../../../packages/go-enum { })
+        arunim.go-enum
       ];
     };
   };

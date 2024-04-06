@@ -47,7 +47,10 @@
 
   outputs = inputs: with inputs; snowfall-lib.mkFlake {
     inherit inputs;
+
     src = ./.;
+
+    snowfall.namespace = "arunim";
 
     channels-config.allowUnfree = true;
 
