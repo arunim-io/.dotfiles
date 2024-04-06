@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   inherit (pkgs) fetchFromGitHub;
@@ -20,10 +25,11 @@ with lib;
   config = mkIf cfg.enable {
     programs.fish = {
       enable = true;
-      shellInitLast = /* fish */''
-        bind \b backward-kill-word
-        bind \e\[3\;5~ kill-word
-      '';
+      shellInitLast = # fish
+        ''
+          bind \b backward-kill-word
+          bind \e\[3\;5~ kill-word
+        '';
       plugins = [
         {
           name = "sponge";

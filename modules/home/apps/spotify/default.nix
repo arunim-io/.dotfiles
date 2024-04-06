@@ -1,4 +1,10 @@
-{ lib, config, inputs, system, ... }:
+{
+  lib,
+  config,
+  inputs,
+  system,
+  ...
+}:
 
 let
   cfg = config.mods.apps.spotify;
@@ -31,6 +37,5 @@ with lib;
         fullAlbumDate
       ];
     };
-
   };
 }

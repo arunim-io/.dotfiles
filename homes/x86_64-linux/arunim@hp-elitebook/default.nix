@@ -1,4 +1,5 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, ... }:
+{
   imports = with inputs; [
     ags.homeManagerModules.default
     spicetify.homeManagerModule

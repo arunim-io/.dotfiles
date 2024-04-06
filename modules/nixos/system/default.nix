@@ -1,4 +1,10 @@
-{ lib, config, pkgs, inputs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   inherit (inputs) nixpkgs;
@@ -22,7 +28,10 @@ with lib;
       description = "The host name of the system.";
     };
     shells = mkOption {
-      default = with pkgs; [ bash fish ];
+      default = with pkgs; [
+        bash
+        fish
+      ];
       type = types.listOf types.package;
       description = "The shells to install on the system.";
     };
@@ -33,16 +42,17 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable
-    {
-      environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
+  config = mkIf cfg.enable {
+    environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
 
-      environment = {
-        inherit (cfg) shells;
+    environment = {
+      inherit (cfg) shells;
 
-        localBinInPath = true;
-        homeBinInPath = true;
-        systemPackages = cfg.packages ++ (with pkgs; [
+      localBinInPath = true;
+      homeBinInPath = true;
+      systemPackages =
+        cfg.packages
+        ++ (with pkgs; [
           git
           gnupg
           curl
@@ -53,26 +63,26 @@ with lib;
           nettools
           inxi
         ]);
-      };
+    };
 
-      nix = {
-        channel.enable = false;
-        gc = {
-          automatic = true;
-          dates = "weekly";
-          options = "--delete-older-than 7d";
-        };
-        registry.nixpkgs.flake = nixpkgs;
-        settings = {
-          auto-optimise-store = true;
-          experimental-features = [
-            "auto-allocate-uids"
-            "nix-command"
-            "flakes"
-            "repl-flake"
-          ];
-          nix-path = mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
-        };
+    nix = {
+      channel.enable = false;
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 7d";
+      };
+      registry.nixpkgs.flake = nixpkgs;
+      settings = {
+        auto-optimise-store = true;
+        experimental-features = [
+          "auto-allocate-uids"
+          "nix-command"
+          "flakes"
+          "repl-flake"
+        ];
+        nix-path = mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
       };
     };
+  };
 }

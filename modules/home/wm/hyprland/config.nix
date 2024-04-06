@@ -1,4 +1,5 @@
-{ pkgs, cfg }: {
+{ pkgs, cfg }:
+{
   exec-once = with pkgs; [
     "${polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
     "${networkmanagerapplet}/bin/nm-applet"
@@ -76,8 +77,9 @@
         let
           no = 10;
         in
-        builtins.concatLists (builtins.genList
-          (x:
+        builtins.concatLists (
+          builtins.genList (
+            x:
             let
               ws = builtins.toString (x + 1 - (((x + 1) / no) * no));
             in
@@ -85,9 +87,10 @@
               "$mod, ${ws}, workspace, ${toString (x + 1)}"
               "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
             ]
-          )
-          no);
-      system-binds = with pkgs;
+          ) no
+        );
+      system-binds =
+        with pkgs;
         let
           player = "${playerctl}/bin/playerctl";
           wpctl = "${wireplumber}/bin/wpctl";
@@ -127,7 +130,9 @@
       "$mod, E, exec, thunar"
       "$mod, F, exec, firefox"
       "$mod, S, exec, spotify"
-    ] ++ workspace-binds ++ system-binds;
+    ]
+    ++ workspace-binds
+    ++ system-binds;
   bindm = [
     "$mod, mouse:272, movewindow"
     "$mod, mouse:273, resizewindow"

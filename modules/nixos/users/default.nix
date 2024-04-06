@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.mods.user;
@@ -59,7 +64,11 @@ with lib;
 
       isNormalUser = true;
       description = cfg.name;
-      extraGroups = [ "wheel" "input" ]
+      extraGroups =
+        [
+          "wheel"
+          "input"
+        ]
         ++ cfg.extraGroups
         ++ getUserGroup config.networking.networkmanager.enable "networkmanager"
         ++ getUserGroup config.virtualisation.libvirtd.enable "libvirtd"

@@ -1,4 +1,11 @@
-{ lib, config, pkgs, inputs, system, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  system,
+  ...
+}:
 
 let
   cfg = config.mods.apps.nvim;
@@ -32,7 +39,7 @@ with lib;
         gnumake
         # nix
         nil
-        nixpkgs-fmt
+        nixfmt-rfc-style
         statix
         # lua
         lua-language-server

@@ -1,4 +1,4 @@
-{ ... }: {
+super: {
   imports = [ ./hardware-configuration.nix ];
 
   mods = {

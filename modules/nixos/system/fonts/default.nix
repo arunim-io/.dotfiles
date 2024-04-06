@@ -1,4 +1,11 @@
-{ lib, config, pkgs, inputs, system, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  system,
+  ...
+}:
 
 let
   cfg = config.mods.system.fonts;
@@ -23,23 +30,41 @@ with lib;
 
   config = mkIf cfg.enable {
     fonts = {
-      packages = with pkgs; [
-        font-awesome
-        material-design-icons
-        ubuntu_font_family
-        noto-fonts
-        noto-fonts-emoji
-        (nerdfonts.override { fonts = [ "JetBrainsMono" "UbuntuMono" ]; })
-      ] ++ cfg.extraFonts;
+      packages =
+        with pkgs;
+        [
+          font-awesome
+          material-design-icons
+          ubuntu_font_family
+          noto-fonts
+          noto-fonts-emoji
+          (nerdfonts.override {
+            fonts = [
+              "JetBrainsMono"
+              "UbuntuMono"
+            ];
+          })
+        ]
+        ++ cfg.extraFonts;
       fontDir.enable = true;
       enableDefaultPackages = true;
       fontconfig = {
         subpixel.rgba = "rgb";
         defaultFonts = {
-          serif = [ "Ubuntu" "Noto Serif" ];
+          serif = [
+            "Ubuntu"
+            "Noto Serif"
+          ];
           emoji = [ "Noto Color Emoji" ];
-          sansSerif = [ "Ubuntu" "Noto Sans" ];
-          monospace = [ "JetBrains Nerd Font" "Ubuntu Mono" "Noto Color Emoji" ];
+          sansSerif = [
+            "Ubuntu"
+            "Noto Sans"
+          ];
+          monospace = [
+            "JetBrains Nerd Font"
+            "Ubuntu Mono"
+            "Noto Color Emoji"
+          ];
         };
       };
     };

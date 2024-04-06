@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.mods.apps.thunar;
@@ -20,7 +25,10 @@ with lib;
     programs = {
       thunar = {
         enable = true;
-        plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin ];
+        plugins = with pkgs.xfce; [
+          thunar-volman
+          thunar-archive-plugin
+        ];
       };
 
       xfconf.enable = true;

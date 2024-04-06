@@ -1,4 +1,11 @@
-{ lib, config, pkgs, inputs, system, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  system,
+  ...
+}:
 
 let
   cfg = config.mods.wm.hyprland;
@@ -19,7 +26,11 @@ with lib;
   config = mkIf cfg.enable {
     environment = {
       sessionVariables.NIXOS_OZONE_WL = "1";
-      systemPackages = with pkgs; [ polkit_gnome gnome.gnome-bluetooth libdbusmenu-gtk3 ];
+      systemPackages = with pkgs; [
+        polkit_gnome
+        gnome.gnome-bluetooth
+        libdbusmenu-gtk3
+      ];
     };
 
     programs.hyprland = {

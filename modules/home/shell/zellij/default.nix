@@ -1,4 +1,10 @@
-{ lib, config, inputs, system, ... }:
+{
+  lib,
+  config,
+  inputs,
+  system,
+  ...
+}:
 
 let
   cfg = config.mods.shell.zellij;

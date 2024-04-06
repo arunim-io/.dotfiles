@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.mods.hardware.bluetooth;
@@ -24,7 +29,6 @@ with lib;
         Enable = "Source,Sink,Media,Socket";
         Experimental = true;
       };
-
     };
     services.pipewire.wireplumber.configPackages = [
       (pkgs.writeTextDir "wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''

@@ -19,7 +19,7 @@ with lib;
   config = mkIf cfg.enable {
     programs.wezterm = {
       enable = true;
-      extraConfig = /* lua */ ''
+      extraConfig = ''
         local config = wezterm.config_builder() or {}
 
         config.use_fancy_tab_bar = false

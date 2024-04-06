@@ -45,18 +45,25 @@
     ];
   };
 
-  outputs = inputs: with inputs; snowfall-lib.mkFlake {
-    inherit inputs;
+  outputs =
+    inputs@{
+      snowfall-lib,
+      neovim-nightly-overlay,
+      hypr-contrib,
+      ...
+    }:
+    snowfall-lib.mkFlake {
+      inherit inputs;
 
-    src = ./.;
+      src = ./.;
 
-    snowfall.namespace = "arunim";
+      snowfall.namespace = "arunim";
 
-    channels-config.allowUnfree = true;
+      channels-config.allowUnfree = true;
 
-    overlays = [
-      neovim-nightly-overlay.overlay
-      hypr-contrib.overlays.default
-    ];
-  };
+      overlays = [
+        neovim-nightly-overlay.overlay
+        hypr-contrib.overlays.default
+      ];
+    };
 }

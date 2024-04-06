@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.mods.wm.hyprland;
@@ -17,7 +22,10 @@ with lib;
     defaultTerminal = mkOption {
       default = "foot";
       example = literalExpression "wezterm";
-      type = types.enum [ "wezterm" "foot" ];
+      type = types.enum [
+        "wezterm"
+        "foot"
+      ];
       description = "The terminal to use with hyprland.";
     };
   };

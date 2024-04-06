@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.mods.theming;
@@ -42,8 +47,12 @@ with lib;
           name = "adw-gtk3-dark";
           package = pkgs.adw-gtk3;
         };
-        gtk3 = { inherit extraConfig; };
-        gtk4 = { inherit extraConfig; };
+        gtk3 = {
+          inherit extraConfig;
+        };
+        gtk4 = {
+          inherit extraConfig;
+        };
       };
 
     qt = {
