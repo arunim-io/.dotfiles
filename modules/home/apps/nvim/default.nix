@@ -55,7 +55,7 @@ with lib;
         # dockerfile
         dockerfile-language-server-nodejs
         # python
-        python3
+        python312
         nodePackages.pyright
         ruff
         ruff-lsp
