@@ -7,7 +7,7 @@
     "ags"
   ];
 
-  monitor = ",preferred,auto,1.25g";
+  monitor = ",preferred,auto,1.2";
 
   env = [
     "QT_QPA_PLATFORM,wayland"
