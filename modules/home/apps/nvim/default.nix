@@ -73,6 +73,8 @@ with lib;
         nodePackages.prettier
         # toml
         taplo
+        # yaml
+        yaml-language-server
         # golang
         go
         gofumpt
