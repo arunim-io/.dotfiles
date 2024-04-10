@@ -69,6 +69,7 @@ with lib;
         nodePackages."@astrojs/language-server"
         nodePackages."@tailwindcss/language-server"
         biome
+        rustywind
         # multi-lang formatter
         nodePackages.prettier
         # toml
