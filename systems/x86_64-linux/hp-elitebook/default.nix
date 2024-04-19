@@ -25,7 +25,8 @@ super: {
     wm.hyprland.enable = true;
   };
 
-  services.input-remapper.enable = true;
+  services.thermald.enable = true;
+  powerManagement.powertop.enable = true;
 
   system.stateVersion = "23.11";
 }
