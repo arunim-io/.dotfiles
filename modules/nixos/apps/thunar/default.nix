@@ -32,6 +32,8 @@ with lib;
       };
 
       xfconf.enable = true;
+
+      file-roller.enable = true;
     };
 
     services = {
