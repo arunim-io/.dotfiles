@@ -78,6 +78,7 @@ with lib;
         yaml-language-server
         # golang
         go
+        gopls
         gofumpt
         gotools
         golines
