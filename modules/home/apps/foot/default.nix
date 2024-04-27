@@ -21,8 +21,6 @@ with lib;
       enable = true;
       server.enable = true;
       settings = {
-        environment.ZELLIJ_AUTO_ATTACH = true;
-
         main = {
           font = "JetBrainsMono NF";
           box-drawings-uses-font-glyphs = true;

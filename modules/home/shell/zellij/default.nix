@@ -23,10 +23,7 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    programs.zellij = {
-      enable = true;
-      enableFishIntegration = true;
-    };
+    programs.zellij.enable = true;
 
     home.file = {
       "./.config/zellij/config.kdl".source = ./config.kdl;

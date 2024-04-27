@@ -79,7 +79,6 @@ with lib;
           "auto-allocate-uids"
           "nix-command"
           "flakes"
-          "repl-flake"
         ];
         nix-path = mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
       };
