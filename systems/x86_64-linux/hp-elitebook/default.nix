@@ -11,8 +11,11 @@ super: {
       time.enable = true;
     };
     user.enable = true;
-    hardware.sound.enable = true;
-    hardware.bluetooth.enable = true;
+    hardware = {
+      sound.enable = true;
+      bluetooth.enable = true;
+      networking.enable = true;
+    };
     services = {
       printing.enable = true;
       flatpak.enable = true;
