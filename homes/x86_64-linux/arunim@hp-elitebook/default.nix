@@ -36,4 +36,6 @@
       gnumake
     ];
   };
+
+  programs.chromium.enable = true;
 }
