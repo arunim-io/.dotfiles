@@ -66,6 +66,7 @@ with lib;
     };
 
     nix = {
+      package = pkgs.nixVersions.latest;
       channel.enable = false;
       gc = {
         automatic = true;

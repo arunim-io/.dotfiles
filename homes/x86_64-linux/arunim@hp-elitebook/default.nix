@@ -1,10 +1,5 @@
 { pkgs, inputs, ... }:
 {
-  imports = with inputs; [
-    ags.homeManagerModules.default
-    spicetify.homeManagerModule
-  ];
-
   mods = {
     home.enable = true;
     theming.enable = true;
@@ -29,6 +24,7 @@
 
     packages = with pkgs; [
       zoom-us
+      brave
       webcord
       topgrade
       bun

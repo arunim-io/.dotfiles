@@ -62,8 +62,13 @@
       channels-config.allowUnfree = true;
 
       overlays = [
-        neovim-nightly-overlay.overlay
+        neovim-nightly-overlay.overlays.default
         hypr-contrib.overlays.default
+      ];
+
+      homes.modules = with inputs; [
+        ags.homeManagerModules.default
+        spicetify.homeManagerModule
       ];
     };
 }
