@@ -11,7 +11,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland = {
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
+    };
     hypr-contrib = {
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,7 +29,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     spicetify = {
-      url = "github:A1ca7raz/spicetify-nix";
+      url = "github:arunim-io/spicetify.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zjstatus = {

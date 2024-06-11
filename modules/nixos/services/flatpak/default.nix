@@ -16,5 +16,8 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable { services.flatpak.enable = true; };
+  config = mkIf cfg.enable {
+    services.flatpak.enable = true;
+    xdg.portal.enable = true;
+  };
 }
