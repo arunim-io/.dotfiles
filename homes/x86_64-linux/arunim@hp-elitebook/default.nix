@@ -10,5 +10,5 @@ withRuby=false;
 };
 programs.wofi.enable=true;
 programs.foot.enable=true;
-prgrams.lazygit.enable=true;
+programs.lazygit.enable=true;
 }
