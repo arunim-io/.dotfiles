@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs,inputs,lib, ... }:
 
 {
   imports =
@@ -56,7 +56,7 @@
     isNormalUser = true;
     description = "Mugdha Arunim Ahmed";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ neovim brave foot xfce.thunar wofi ];
+    packages = with pkgs; [ brave xfce.thunar ];
   };
 
   # Allow unfree packages
@@ -99,5 +99,21 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
   programs.hyprland.enable=true;
+
+  environment.etc."nix/inputs/nixpkgs".source = builtins.toString inputs.nixpkgs;
+  nix = {
+#      package = pkgs.nixVersions.latest;
+      channel.enable = false;
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 7d";
+      };
+      registry.nixpkgs.flake = inputs.nixpkgs;
+      settings = {
+        auto-optimise-store = true;
+        nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
+      };
+    };
 }
 
