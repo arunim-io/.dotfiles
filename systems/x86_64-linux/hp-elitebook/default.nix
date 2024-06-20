@@ -42,15 +42,6 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "gb";
-    xkbVariant = "";
-  };
-
-  # Configure console keymap
-  console.keyMap = "uk";
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.arunim = {
     isNormalUser = true;
@@ -115,5 +106,16 @@
         nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
       };
     };
+
+  security.rtkit.enable=true;
+  services.pipewire={
+  enable=true;
+  alsa={
+enable=true;
+support32Bit=true;
+  };
+  pulse.enable=true;
+  jack.enable=true;
+  };
 }
 

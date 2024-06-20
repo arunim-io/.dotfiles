@@ -1,4 +1,5 @@
 {pkgs,...}:{
+home.stateVersion="24.11";
 programs.git.enable=true;
 programs.neovim={
 enable=true;
