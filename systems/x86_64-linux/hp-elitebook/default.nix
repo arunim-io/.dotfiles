@@ -2,13 +2,19 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs,inputs,lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -46,8 +52,14 @@
   users.users.arunim = {
     isNormalUser = true;
     description = "Mugdha Arunim Ahmed";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ brave xfce.thunar ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [
+      brave
+      xfce.thunar
+    ];
   };
 
   # Allow unfree packages
@@ -56,8 +68,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
   ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -89,33 +101,31 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 
-  programs.hyprland.enable=true;
+  programs.hyprland.enable = true;
 
   environment.etc."nix/inputs/nixpkgs".source = builtins.toString inputs.nixpkgs;
   nix = {
-#      package = pkgs.nixVersions.latest;
-      channel.enable = false;
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 7d";
-      };
-      registry.nixpkgs.flake = inputs.nixpkgs;
-      settings = {
-        auto-optimise-store = true;
-        nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
-      };
+    channel.enable = false;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
     };
-
-  security.rtkit.enable=true;
-  services.pipewire={
-  enable=true;
-  alsa={
-enable=true;
-support32Bit=true;
+    registry.nixpkgs.flake = inputs.nixpkgs;
+    settings = {
+      auto-optimise-store = true;
+      nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
+    };
   };
-  pulse.enable=true;
-  jack.enable=true;
+
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+    pulse.enable = true;
+    jack.enable = true;
   };
 }
-
