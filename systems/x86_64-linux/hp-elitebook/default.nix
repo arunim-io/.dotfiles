@@ -38,6 +38,7 @@
       "wheel"
     ];
     packages = with pkgs; [
+      sops
       brave
       xfce.thunar
     ];
