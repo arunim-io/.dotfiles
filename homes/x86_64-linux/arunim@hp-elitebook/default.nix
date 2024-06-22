@@ -1,7 +1,10 @@
 { pkgs, ... }:
 {
   home.stateVersion = "24.11";
+
   programs.git.enable = true;
+  programs.gh.enable = true;
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -10,6 +13,7 @@
     withPython3 = false;
     withRuby = false;
   };
+
   programs.wofi.enable = true;
   programs.foot.enable = true;
   programs.lazygit.enable = true;

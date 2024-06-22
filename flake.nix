@@ -9,6 +9,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -24,5 +28,7 @@
       };
 
       outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
+
+      systems.modules.nixos = with inputs; [ sops.nixosModules.sops ];
     };
 }
