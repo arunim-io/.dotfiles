@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   inputs,
   lib,
@@ -8,26 +7,31 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
-  networking.hostName = "hp-elitebook";
-
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "hp-elitebook";
+    networkmanager.enable = true;
+  };
 
   time.timeZone = "Asia/Dhaka";
 
-  i18n.defaultLocale = "en_GB.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_GB.UTF-8";
-    LC_IDENTIFICATION = "en_GB.UTF-8";
-    LC_MEASUREMENT = "en_GB.UTF-8";
-    LC_MONETARY = "en_GB.UTF-8";
-    LC_NAME = "en_GB.UTF-8";
-    LC_NUMERIC = "en_GB.UTF-8";
-    LC_PAPER = "en_GB.UTF-8";
-    LC_TELEPHONE = "en_GB.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "en_GB.UTF-8";
+      LC_IDENTIFICATION = "en_GB.UTF-8";
+      LC_MEASUREMENT = "en_GB.UTF-8";
+      LC_MONETARY = "en_GB.UTF-8";
+      LC_NAME = "en_GB.UTF-8";
+      LC_NUMERIC = "en_GB.UTF-8";
+      LC_PAPER = "en_GB.UTF-8";
+      LC_TELEPHONE = "en_GB.UTF-8";
+      LC_TIME = "en_GB.UTF-8";
+    };
   };
 
   users.users.arunim = {
@@ -41,12 +45,12 @@
       sops
       brave
       xfce.thunar
+      zoom-us
+      pulseaudio
     ];
   };
 
   nixpkgs.config.allowUnfree = true;
-
-  environment.systemPackages = with pkgs; [ ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -87,14 +91,30 @@
       sshKeyPaths = [ "/home/arunim/.ssh/id_ed25519" ];
       generateKey = true;
     };
-  };
-  sops.secrets.github_token.owner = "arunim";
-  sops.secrets.ssh_key = {
-    owner = "arunim";
-    path = "/home/arunim/.ssh/id_ed25519";
+    secrets = {
+      github_token.owner = "arunim";
+      ssh_key = {
+        owner = "arunim";
+        path = "/home/arunim/.ssh/id_ed25519";
+      };
+    };
   };
 
-  environment.interactiveShellInit = "export GITHUB_TOKEN=$(cat /run/secrets/github_token)";
+  programs.fish = {
+    enable = true;
+    useBabelfish = true;
+  };
+
+  programs.bash.interactiveShellInit = ''
+    export GITHUB_TOKEN=$(cat /run/secrets/github_token)
+
+    # The code below executes fish using bash. See https://nixos.wiki/wiki/Fish#Setting_fish_as_your_shell for more info.
+    if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+    then
+      shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+      exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+    fi
+  '';
 
   programs.ssh.startAgent = true;
   programs.gnupg.agent.enable = true;
