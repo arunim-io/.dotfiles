@@ -93,6 +93,8 @@
       ];
     };
 
+    zellij.enable = true;
+
     direnv = {
       enable = true;
       nix-direnv.enable = true;
@@ -105,4 +107,6 @@
     wofi.enable = true;
     lazygit.enable = true;
   };
+
+  xdg.configFile."zellij/config.kdl".source = ./configs/zellij.kdl;
 }
