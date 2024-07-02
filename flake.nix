@@ -20,14 +20,14 @@
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
 
+      channels-config.allowUnfree = true;
+
       src = ./.;
 
       snowfall.user = {
         enable = true;
         name = "arunim";
       };
-
-      outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
 
       systems.modules.nixos = with inputs; [ sops.nixosModules.sops ];
     };
