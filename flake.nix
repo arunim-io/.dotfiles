@@ -13,14 +13,17 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland = {
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
+    };
   };
 
   outputs =
     inputs:
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
-
-      channels-config.allowUnfree = true;
 
       src = ./.;
 
@@ -29,6 +32,23 @@
         name = "arunim";
       };
 
+      channels-config.allowUnfree = true;
+
+      overlays = with inputs; [ ];
+
       systems.modules.nixos = with inputs; [ sops.nixosModules.sops ];
+
+      homes.modules = with inputs; [ hyprland.homeManagerModules.default ];
     };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://hyprland.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
+  };
 }
