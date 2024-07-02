@@ -9,7 +9,7 @@ keybinds {
     unbind "Ctrl b"
     bind "Alt m" { SwitchToMode "tmux"; }
     bind "Alt l" { SwitchToMode "locked"; }
-    bind "Alt x" "Esc" { CloseFocus; SwitchToMode "Normal"; }
+    bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
     bind "Alt n" { NewPane; }
     bind "Alt t" { NewTab; }
     bind "Alt Left" { MoveFocus "Left"; }
@@ -18,12 +18,12 @@ keybinds {
     bind "Alt Up" { MoveFocus "Up"; }
     bind "Alt [" { GoToNextTab; }
     bind "Alt ]" { GoToPreviousTab; }
-    bind "Alt =" "Alt +" { Resize "Increase"; } // zellij wasn't recoginizing `+` so I had to use `=`
+    bind "Alt =" "Alt +" { Resize "Increase"; }
     bind "Alt -" { Resize "Decrease"; }
     bind "Alt ," { NextSwapLayout; }
   }
   tmux clear-defaults=true {
-    bind "Alt m" "Esc" { Write 2; SwitchToMode "normal"; }
+    bind "Alt m" { Write 2; SwitchToMode "normal"; }
     bind "l" { SwitchToMode "locked"; }
     bind "p" { SwitchToMode "pane"; }
     bind "t" { SwitchToMode "tab"; }
