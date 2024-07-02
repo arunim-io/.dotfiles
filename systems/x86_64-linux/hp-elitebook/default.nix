@@ -2,10 +2,34 @@
   pkgs,
   inputs,
   lib,
+  config,
   ...
 }:
+let
+  username = "arunim";
+  userConfig = config.snowfallorg.users.${username};
+  homePath = userConfig.home.path;
+in
 {
   imports = [ ./hardware-configuration.nix ];
+
+  users.users.${username} = {
+    isNormalUser = true;
+    description = "Mugdha Arunim Ahmed";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [
+      sops
+      brave
+      xfce.thunar
+      zoom-us
+      pulseaudio
+    ];
+  };
+
+  environment.systemPackages = with pkgs; [ git ];
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -34,24 +58,6 @@
     };
   };
 
-  users.users.arunim = {
-    isNormalUser = true;
-    description = "Mugdha Arunim Ahmed";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    packages = with pkgs; [
-      sops
-      brave
-      xfce.thunar
-      zoom-us
-      pulseaudio
-    ];
-  };
-
-  nixpkgs.config.allowUnfree = true;
-
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   system.stateVersion = "24.11";
@@ -70,6 +76,10 @@
     settings = {
       auto-optimise-store = true;
       nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
+      trusted-users = [
+        "root"
+        username
+      ];
     };
   };
 
@@ -87,15 +97,15 @@
   sops = {
     defaultSopsFile = lib.snowfall.fs.get-file "secrets.yaml";
     age = {
-      keyFile = "/home/arunim/.config/sops/age/keys.txt";
-      sshKeyPaths = [ "/home/arunim/.ssh/id_ed25519" ];
+      keyFile = "${homePath}/.config/sops/age/keys.txt";
+      sshKeyPaths = [ config.sops.secrets.ssh_key.path ];
       generateKey = true;
     };
     secrets = {
-      github_token.owner = "arunim";
+      github_token.owner = username;
       ssh_key = {
-        owner = "arunim";
-        path = "/home/arunim/.ssh/id_ed25519";
+        owner = username;
+        path = "${homePath}/.ssh/id_ed25519";
       };
     };
   };
