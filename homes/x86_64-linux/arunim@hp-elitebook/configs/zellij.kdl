@@ -34,4 +34,7 @@ keybinds {
     bind "%" { NewPane "Right"; SwitchToMode "normal"; }
     bind "\"" { NewPane "Down"; SwitchToMode "normal"; }
   }
+  locked clear-defaults=true {
+    bind "Alt l" { SwitchToMode "normal"; }
+  }
 }
