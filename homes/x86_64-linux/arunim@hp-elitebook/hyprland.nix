@@ -15,9 +15,6 @@ in
     systemd.variables = [ "--all" ];
     settings =
       let
-        terminal = getExe config.programs.foot.package;
-        fileManager = getExe pkgs.xfce.thunar;
-        appMenu = "${getExe config.programs.wofi.package} --show drun";
         mainMod = "SUPER";
       in
       {
@@ -30,9 +27,9 @@ in
 
         general = {
           gaps_in = 5;
-          gaps_out = 20;
+          gaps_out = 10;
 
-          border_size = 2;
+          border_size = 1;
 
           "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
           "col.inactive_border" = "rgba(595959aa)";
@@ -47,8 +44,8 @@ in
         decoration = {
           rounding = 10;
 
-          active_opacity = 1.0;
-          inactive_opacity = 1.0;
+          active_opacity = 1;
+          inactive_opacity = 1;
 
           drop_shadow = true;
           shadow_range = 4;
@@ -91,6 +88,9 @@ in
         misc = {
           force_default_wallpaper = 0;
           disable_hyprland_logo = false;
+          enable_swallow = true;
+          focus_on_activate = true;
+          allow_session_lock_restore = true;
         };
 
         input = {
@@ -106,28 +106,28 @@ in
 
           touchpad = {
             natural_scroll = true;
+            middle_button_emulation = true;
+            clickfinger_behavior = true;
           };
         };
 
-        gestures = {
-          workspace_swipe = false;
-        };
+        gestures.workspace_swipe = false;
 
         bind =
           [
-            "${mainMod}, Q, exec, ${terminal}"
-            "${mainMod}, C, killactive,"
-            "${mainMod}, M, exit,"
-            "${mainMod}, E, exec, ${fileManager}"
+            "${mainMod}, Q, killactive,"
             "${mainMod}, V, togglefloating,"
-            "${mainMod}, R, exec, ${appMenu}"
             "${mainMod}, P, pseudo," # dwindle
             "${mainMod}, J, togglesplit," # dwindle
-
             "${mainMod}, left, movefocus, l"
             "${mainMod}, right, movefocus, r"
             "${mainMod}, up, movefocus, u"
             "${mainMod}, down, movefocus, d"
+
+            "${mainMod}, F, exec, ${getExe pkgs.xfce.thunar}"
+            "${mainMod}, RETURN, exec, ${getExe config.programs.foot.package}"
+            "${mainMod}, M, exec, ${getExe config.programs.wofi.package} --show drun"
+            "${mainMod}, B, exec, ${getExe pkgs.brave}"
           ]
           ++ (builtins.concatLists (
             builtins.genList (
@@ -151,7 +151,31 @@ in
 
             "${mainMod}, mouse_down, workspace, e+1"
             "${mainMod}, mouse_up, workspace, e-1"
-          ];
+          ]
+          ++ (
+            let
+              player = getExe pkgs.playerctl;
+              wpctl = lib.getExe' pkgs.wireplumber "wpctl";
+              brightness = getExe pkgs.brightnessctl;
+              screenshot = getExe pkgs.grimblast;
+            in
+            [
+              ", XF86AudioPlay, exec, ${player} play-pause"
+              ", XF86AudioNext, exec, ${player} next"
+              ", XF86AudioPrev, exec, ${player} previous"
+              ", XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+              ", XF86AudioRaiseVolume, exec, ${wpctl} set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+              ", XF86AudioLowerVolume, exec, ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+              ", XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+              ", XF86MonBrightnessUp, exec, ${brightness} set +10%"
+              ", XF86MonBrightnessDown, exec, ${brightness} set 10%-"
+              # ", switch:Lid Switch, exec, swaylock"
+              # "$mod SHIFT, Q, exec, ${wlogout}/bin/wlogout"
+              ", PRINT, exec, ${screenshot} --notify --freeze copysave screen"
+              "${mainMod}, PRINT, exec, ${screenshot} --notify --freeze copysave window"
+              "${mainMod} SHIFT, PRINT, exec, ${screenshot} --notify --freeze copysave area"
+            ]
+          );
         bindm = [
           "${mainMod}, mouse:272, movewindow"
           "${mainMod}, mouse:273, resizewindow"

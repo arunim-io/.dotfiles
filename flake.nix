@@ -18,6 +18,10 @@
       url = "https://github.com/hyprwm/Hyprland";
       submodules = true;
     };
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -34,7 +38,7 @@
 
       channels-config.allowUnfree = true;
 
-      overlays = with inputs; [ ];
+      overlays = with inputs; [ hyprland-contrib.overlays.default ];
 
       systems.modules.nixos = with inputs; [ sops.nixosModules.sops ];
 
