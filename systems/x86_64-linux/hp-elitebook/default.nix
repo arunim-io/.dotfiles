@@ -3,7 +3,6 @@
   lib,
   pkgs,
   inputs,
-  system,
   ...
 }:
 let
@@ -63,15 +62,7 @@ in
 
   system.stateVersion = "24.11";
 
-  programs.hyprland =
-    let
-      inherit (inputs.hyprland.packages.${system}) hyprland xdg-desktop-portal-hyprland;
-    in
-    {
-      enable = true;
-      package = hyprland;
-      portalPackage = xdg-desktop-portal-hyprland;
-    };
+  programs.hyprland.enable = true;
 
   environment.etc."nix/inputs/nixpkgs".source = builtins.toString inputs.nixpkgs;
   nix = {

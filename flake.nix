@@ -40,7 +40,10 @@
 
       overlays = with inputs; [ hyprland-contrib.overlays.default ];
 
-      systems.modules.nixos = with inputs; [ sops.nixosModules.sops ];
+      systems.modules.nixos = with inputs; [
+        sops.nixosModules.sops
+        hyprland.nixosModules.default
+      ];
 
       homes.modules = with inputs; [ hyprland.homeManagerModules.default ];
     };
