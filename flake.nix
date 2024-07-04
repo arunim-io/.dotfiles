@@ -22,6 +22,8 @@
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neovim.url = "github:arunim-io/nvim";
+    neovim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -38,14 +40,20 @@
 
       channels-config.allowUnfree = true;
 
-      overlays = with inputs; [ hyprland-contrib.overlays.default ];
+      overlays = with inputs; [
+        hyprland-contrib.overlays.default
+        neovim.overlays.default
+      ];
 
       systems.modules.nixos = with inputs; [
         sops.nixosModules.sops
         hyprland.nixosModules.default
       ];
 
-      homes.modules = with inputs; [ hyprland.homeManagerModules.default ];
+      homes.modules = with inputs; [
+        hyprland.homeManagerModules.default
+        neovim.homeManagerModules.default
+      ];
     };
 
   nixConfig = {

@@ -2,14 +2,16 @@
 {
   imports = [
     ./git.nix
-    ./neovim.nix
     ./foot.nix
     ./cmdline.nix
     ./hyprland.nix
     ./themes.nix
   ];
+
   home = {
     stateVersion = "24.11";
     packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
   };
+
+  programs.neovim.enable = true;
 }
