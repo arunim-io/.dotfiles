@@ -6,6 +6,7 @@
     ./foot.nix
     ./cmdline.nix
     ./hyprland.nix
+    ./themes.nix
   ];
   home = {
     stateVersion = "24.11";
