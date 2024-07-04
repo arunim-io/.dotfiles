@@ -24,6 +24,10 @@
     };
     neovim.url = "github:arunim-io/nvim";
     neovim.inputs.nixpkgs.follows = "nixpkgs";
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -53,6 +57,7 @@
       homes.modules = with inputs; [
         hyprland.homeManagerModules.default
         neovim.homeManagerModules.default
+        ags.homeManagerModules.default
       ];
     };
 

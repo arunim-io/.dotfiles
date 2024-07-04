@@ -14,4 +14,5 @@
   };
 
   programs.neovim.enable = true;
+  programs.ags.enable = true;
 }
