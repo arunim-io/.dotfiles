@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  inputs,
+  system,
+  ...
+}:
 {
   imports = [
     ./git.nix
@@ -12,7 +17,12 @@
     stateVersion = "24.11";
     packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
   };
+  programs = {
+    ags = {
+      enable = true;
+      package = inputs.ags-config.packages.${system}.default;
+    };
 
-  programs.neovim.enable = true;
-  programs.ags.enable = true;
+    neovim.enable = true;
+  };
 }

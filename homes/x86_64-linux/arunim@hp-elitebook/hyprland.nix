@@ -8,6 +8,8 @@ let
   inherit (lib) getExe;
 in
 {
+  home.packages = with pkgs; [ wl-clipboard ];
+
   programs.wofi.enable = true;
 
   wayland.windowManager.hyprland = {

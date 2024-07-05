@@ -22,11 +22,20 @@
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim.url = "github:arunim-io/nvim";
-    neovim.inputs.nixpkgs.follows = "nixpkgs";
+    neovim = {
+      url = "github:arunim-io/nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ags = {
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ags-config = {
+      url = "github:arunim-io/ags";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        ags.follows = "ags";
+      };
     };
   };
 
