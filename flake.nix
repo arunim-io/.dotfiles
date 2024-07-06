@@ -30,13 +30,6 @@
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ags-config = {
-      url = "github:arunim-io/ags";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        ags.follows = "ags";
-      };
-    };
   };
 
   outputs =

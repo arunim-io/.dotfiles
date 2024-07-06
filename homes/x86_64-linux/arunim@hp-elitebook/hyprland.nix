@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) getExe;
+  inherit (lib) getExe getExe';
 in
 {
   home.packages = with pkgs; [ wl-clipboard ];
@@ -26,6 +26,8 @@ in
           "XCURSOR_SIZE,24"
           "HYPRCURSOR_SIZE,24"
         ];
+
+        exec-once = [ (getExe' pkgs.ags "ags") ];
 
         general = {
           gaps_in = 5;
@@ -130,6 +132,7 @@ in
             "${mainMod}, RETURN, exec, ${getExe config.programs.foot.package}"
             "${mainMod}, M, exec, ${getExe config.programs.wofi.package} --show drun"
             "${mainMod}, B, exec, ${getExe pkgs.brave}"
+            "${mainMod}, R, exec, ${getExe pkgs.ags} -q; ags"
           ]
           ++ (builtins.concatLists (
             builtins.genList (
