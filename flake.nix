@@ -24,8 +24,12 @@
     };
     neovim = {
       url = "github:arunim-io/nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nightly-overlay.follows = "neovim-nightly-overlay";
+      };
     };
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     ags = {
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";

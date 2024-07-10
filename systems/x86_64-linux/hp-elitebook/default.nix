@@ -63,6 +63,7 @@ in
   system.stateVersion = "24.11";
 
   programs.hyprland.enable = true;
+  services.upower.enable = true;
 
   environment.etc."nix/inputs/nixpkgs".source = builtins.toString inputs.nixpkgs;
   nix = {
@@ -129,4 +130,24 @@ in
 
   programs.ssh.startAgent = true;
   programs.gnupg.agent.enable = true;
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings.General = {
+      Enable = "Source,Sink,Media,Socket";
+      Experimental = true;
+    };
+  };
+  services.pipewire.wireplumber.configPackages = [
+    (pkgs.writeTextDir "wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
+      bluez_monitor.properties = {
+        ["bluez5.enable-sbc-xq"] = true,
+        ["bluez5.enable-msbc"] = true,
+        ["bluez5.enable-hw-volume"] = true,
+        ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+      }
+    '')
+  ];
+  services.blueman.enable = true;
 }

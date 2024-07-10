@@ -18,6 +18,7 @@ in
     settings =
       let
         mainMod = "SUPER";
+        ags = getExe' pkgs.ags "ags";
       in
       {
         monitor = ",preferred,auto,auto";
@@ -27,7 +28,12 @@ in
           "HYPRCURSOR_SIZE,24"
         ];
 
-        exec-once = [ (getExe' pkgs.ags "ags") ];
+        exec-once = [
+          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+          (getExe pkgs.networkmanagerapplet)
+          (getExe' pkgs.blueman "blueman-applet")
+          ags
+        ];
 
         general = {
           gaps_in = 5;
@@ -132,7 +138,7 @@ in
             "${mainMod}, RETURN, exec, ${getExe config.programs.foot.package}"
             "${mainMod}, M, exec, ${getExe config.programs.wofi.package} --show drun"
             "${mainMod}, B, exec, ${getExe pkgs.brave}"
-            "${mainMod}, R, exec, ${getExe pkgs.ags} -q; ags"
+            "${mainMod}, R, exec, ${ags} -q; ${ags}"
           ]
           ++ (builtins.concatLists (
             builtins.genList (
@@ -160,7 +166,7 @@ in
           ++ (
             let
               player = getExe pkgs.playerctl;
-              wpctl = lib.getExe' pkgs.wireplumber "wpctl";
+              wpctl = getExe' pkgs.wireplumber "wpctl";
               brightness = getExe pkgs.brightnessctl;
               screenshot = getExe pkgs.grimblast;
             in

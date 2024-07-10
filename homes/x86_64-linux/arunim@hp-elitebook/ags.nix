@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [ esbuild ];
+  home.packages = with pkgs; [
+    esbuild
+    brightnessctl
+  ];
 
   programs.ags.enable = true;
 }
