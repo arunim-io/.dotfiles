@@ -10,8 +10,6 @@ in
 {
   home.packages = with pkgs; [ wl-clipboard ];
 
-  programs.wofi.enable = true;
-
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.variables = [ "--all" ];
@@ -136,7 +134,7 @@ in
 
             "${mainMod}, F, exec, ${getExe pkgs.xfce.thunar}"
             "${mainMod}, RETURN, exec, ${getExe config.programs.foot.package}"
-            "${mainMod}, M, exec, ${getExe config.programs.wofi.package} --show drun"
+            "${mainMod}, M, exec, ${ags} -t app-launcher"
             "${mainMod}, B, exec, ${getExe pkgs.brave}"
             "${mainMod}, R, exec, ${ags} -q; ${ags}"
           ]
