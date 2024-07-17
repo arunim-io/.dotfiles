@@ -6,9 +6,65 @@
 }:
 let
   inherit (lib) getExe getExe';
+
+  playerctl = getExe pkgs.playerctl;
+  wpctl = getExe' pkgs.wireplumber "wpctl";
+  brightnessctl = getExe pkgs.brightnessctl;
+  grimblast = getExe pkgs.grimblast;
+  loginctl = getExe' pkgs.systemd "loginctl";
+  hyprctl = getExe' pkgs.hyprland "hyprctl";
+  hyprlock = getExe config.programs.hyprlock.package;
+  systemctl = getExe' pkgs.systemd "systemctl";
 in
 {
   home.packages = with pkgs; [ wl-clipboard ];
+
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      general = {
+        ignore_empty_input = true;
+        hide_cursor = true;
+      };
+    };
+  };
+
+  services.hypridle = {
+    enable = true;
+    settings = {
+      general = {
+        lock_cmd = "pidof ${hyprlock} || ${hyprlock}";
+        before_sleep_cmd = "${loginctl} lock-session";
+        after_sleep_cmd = "${hyprctl} dispatch dpms on";
+      };
+
+      listener = [
+        {
+          timeout = 300; # 5min
+          on-timeout = "${brightnessctl} -s set 10"; # Set monitor backlight to min
+          on-resume = "${brightnessctl} -r"; # monitor backlight restore.
+        }
+        {
+          timeout = 300; # 5min
+          on-timeout = "${brightnessctl} -sd rgb:kbd_backlight set 0"; # turn off keyboard backlight.
+          on-resume = "${brightnessctl} -rd rgb:kbd_backlight"; # turn on keyboard backlight.
+        }
+        {
+          timeout = 300; # 5min
+          on-timeout = "${loginctl} lock-session"; # lock screen when timeout has passed
+        }
+        {
+          timeout = 330; # 5.5min
+          on-timeout = "${hyprctl} dispatch dpms off"; # screen off when timeout has passed
+          on-resume = "${hyprctl} dispatch dpms on"; # screen on when activity is detected after timeout has fired.
+        }
+        {
+          timeout = 1800; # 30min
+          on-timeout = "${systemctl} suspend"; # suspend pc
+        }
+      ];
+    };
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -160,31 +216,21 @@ in
 
             "${mainMod}, mouse_down, workspace, e+1"
             "${mainMod}, mouse_up, workspace, e-1"
-          ]
-          ++ (
-            let
-              player = getExe pkgs.playerctl;
-              wpctl = getExe' pkgs.wireplumber "wpctl";
-              brightness = getExe pkgs.brightnessctl;
-              screenshot = getExe pkgs.grimblast;
-            in
-            [
-              ", XF86AudioPlay, exec, ${player} play-pause"
-              ", XF86AudioNext, exec, ${player} next"
-              ", XF86AudioPrev, exec, ${player} previous"
-              ", XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-              ", XF86AudioRaiseVolume, exec, ${wpctl} set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
-              ", XF86AudioLowerVolume, exec, ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-              ", XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-              ", XF86MonBrightnessUp, exec, ${brightness} set +10%"
-              ", XF86MonBrightnessDown, exec, ${brightness} set 10%-"
-              # ", switch:Lid Switch, exec, swaylock"
-              # "$mod SHIFT, Q, exec, ${wlogout}/bin/wlogout"
-              ", PRINT, exec, ${screenshot} --notify --freeze copysave screen"
-              "${mainMod}, PRINT, exec, ${screenshot} --notify --freeze copysave window"
-              "${mainMod} SHIFT, PRINT, exec, ${screenshot} --notify --freeze copysave area"
-            ]
-          );
+
+            ", XF86AudioPlay, exec, ${playerctl} play-pause"
+            ", XF86AudioNext, exec, ${playerctl} next"
+            ", XF86AudioPrev, exec, ${playerctl} previous"
+            ", XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+            ", XF86AudioRaiseVolume, exec, ${wpctl} set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+            ", XF86AudioLowerVolume, exec, ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+            ", XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+            ", XF86MonBrightnessUp, exec, ${brightnessctl} set +10%"
+            ", XF86MonBrightnessDown, exec, ${brightnessctl} set 10%-"
+            # "$mod SHIFT, Q, exec, ${wlogout}/bin/wlogout"
+            ", PRINT, exec, ${grimblast} --notify --freeze copysave screen"
+            "${mainMod}, PRINT, exec, ${grimblast} --notify --freeze copysave window"
+            "${mainMod} SHIFT, PRINT, exec, ${grimblast} --notify --freeze copysave area"
+          ];
         bindm = [
           "${mainMod}, mouse:272, movewindow"
           "${mainMod}, mouse:273, resizewindow"
