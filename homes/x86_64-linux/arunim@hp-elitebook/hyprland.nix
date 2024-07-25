@@ -40,21 +40,21 @@ in
 
       listener = [
         {
-          timeout = 300; # 5min
+          timeout = 600; # 10min
           on-timeout = "${brightnessctl} -s set 10"; # Set monitor backlight to min
           on-resume = "${brightnessctl} -r"; # monitor backlight restore.
         }
         {
-          timeout = 300; # 5min
+          timeout = 600; # 10min
           on-timeout = "${brightnessctl} -sd rgb:kbd_backlight set 0"; # turn off keyboard backlight.
           on-resume = "${brightnessctl} -rd rgb:kbd_backlight"; # turn on keyboard backlight.
         }
         {
-          timeout = 300; # 5min
+          timeout = 600; # 10min
           on-timeout = "${loginctl} lock-session"; # lock screen when timeout has passed
         }
         {
-          timeout = 330; # 5.5min
+          timeout = 900; # 15min
           on-timeout = "${hyprctl} dispatch dpms off"; # screen off when timeout has passed
           on-resume = "${hyprctl} dispatch dpms on"; # screen on when activity is detected after timeout has fired.
         }
