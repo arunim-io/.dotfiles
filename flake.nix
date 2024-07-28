@@ -9,6 +9,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,11 +60,13 @@
       ];
 
       systems.modules.nixos = with inputs; [
+        nix-index-database.nixosModules.nix-index
         sops.nixosModules.sops
         hyprland.nixosModules.default
       ];
 
       homes.modules = with inputs; [
+        nix-index-database.hmModules.nix-index
         hyprland.homeManagerModules.default
         neovim.homeManagerModules.default
         ags.homeManagerModules.default
