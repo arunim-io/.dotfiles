@@ -11,7 +11,10 @@
 
   home = {
     stateVersion = "24.11";
-    packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+    packages = with pkgs; [
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      vlc
+    ];
   };
 
   programs.neovim.enable = true;
