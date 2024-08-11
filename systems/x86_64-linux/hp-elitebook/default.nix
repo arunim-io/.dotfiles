@@ -18,4 +18,6 @@
   networking.hostName = "hp-elitebook";
   time.timeZone = "Asia/Dhaka";
   i18n.defaultLocale = "en_GB.UTF-8";
+
+  services.flatpak.enable = true;
 }

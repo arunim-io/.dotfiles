@@ -4,35 +4,39 @@ pane_frames false
 
 pane_viewport_serialization true
 
+default_mode "locked"
+
 keybinds {
   normal clear-defaults=true {
-    unbind "Ctrl b"
-    bind "Alt m" { SwitchToMode "tmux"; }
     bind "Alt l" { SwitchToMode "locked"; }
-    bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
+    bind "Alt p" { SwitchToMode "pane"; }
+    bind "Alt t" { SwitchToMode "tab"; }
+    bind "Alt r" { SwitchToMode "resize"; }
+    bind "Alt m" { SwitchToMode "move"; }
+    bind "Alt s" { SwitchToMode "scroll"; }
+    bind "Alt o" { SwitchToMode "session"; }
+    bind "Alt q" { Quit; }
     bind "Alt n" { NewPane; }
     bind "Alt t" { NewTab; }
     bind "Alt Left" { MoveFocus "Left"; }
     bind "Alt Right" { MoveFocus "Right"; }
     bind "Alt Down" { MoveFocus "Down"; }
     bind "Alt Up" { MoveFocus "Up"; }
+    bind "Alt +" { Resize "Increase"; }
+    bind "Alt -" { Resize "Decrease"; }
+    bind "Alt \\" { NextSwapLayout; }
+    bind "Alt /" { PreviousSwapLayout; }
     bind "Alt [" { GoToNextTab; }
     bind "Alt ]" { GoToPreviousTab; }
-    bind "Alt =" "Alt +" { Resize "Increase"; }
-    bind "Alt -" { Resize "Decrease"; }
-    bind "Alt ," { NextSwapLayout; }
-  }
-  tmux clear-defaults=true {
-    bind "Alt m" { Write 2; SwitchToMode "normal"; }
-    bind "l" { SwitchToMode "locked"; }
-    bind "p" { SwitchToMode "pane"; }
-    bind "t" { SwitchToMode "tab"; }
-    bind "r" { SwitchToMode "resize"; }
-    bind "m" { SwitchToMode "move"; }
-    bind "s" { SwitchToMode "scroll"; }
-    bind "o" { SwitchToMode "session"; }
-    bind "%" { NewPane "Right"; SwitchToMode "normal"; }
-    bind "\"" { NewPane "Down"; SwitchToMode "normal"; }
+    bind "Alt 1" { GoToTab 1; }
+    bind "Alt 2" { GoToTab 2; }
+    bind "Alt 3" { GoToTab 3; }
+    bind "Alt 4" { GoToTab 4; }
+    bind "Alt 5" { GoToTab 5; }
+    bind "Alt 6" { GoToTab 6; }
+    bind "Alt 7" { GoToTab 7; }
+    bind "Alt 8" { GoToTab 8; }
+    bind "Alt 9" { GoToTab 9; }
   }
   locked clear-defaults=true {
     bind "Alt l" { SwitchToMode "normal"; }
