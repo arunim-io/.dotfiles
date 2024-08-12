@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 {
   imports = [
     ./git.nix
@@ -19,4 +24,5 @@
   };
 
   programs.neovim.enable = true;
+  xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/homes/x86_64-linux/arunim@hp-elitebook/configs/nvim/";
 }
