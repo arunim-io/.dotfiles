@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
     ./git.nix
@@ -7,6 +7,7 @@
     ./hyprland.nix
     ./themes.nix
     ./ags.nix
+    (import ./configs/nvim/module.nix { inherit inputs; })
   ];
 
   home = {

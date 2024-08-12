@@ -454,29 +454,6 @@
         "type": "github"
       }
     },
-    "neovim": {
-      "inputs": {
-        "nightly-overlay": [
-          "neovim-nightly-overlay"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1723395652,
-        "narHash": "sha256-Ew7n7nayoBfVbCTnpeRitXBzer4FzGOsAc+sngfwYTc=",
-        "owner": "arunim-io",
-        "repo": "nvim",
-        "rev": "71f7dfe76ff51b451e6e2c5d32d53b5da78640c8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "arunim-io",
-        "repo": "nvim",
-        "type": "github"
-      }
-    },
     "neovim-nightly-overlay": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -606,7 +583,6 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprland-contrib": "hyprland-contrib",
-        "neovim": "neovim",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_3",
