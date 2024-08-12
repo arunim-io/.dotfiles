@@ -5,5 +5,8 @@
     brightnessctl
   ];
 
-  programs.ags.enable = true;
+  programs.ags = {
+    enable = true;
+    configDir = ./configs/ags;
+  };
 }
