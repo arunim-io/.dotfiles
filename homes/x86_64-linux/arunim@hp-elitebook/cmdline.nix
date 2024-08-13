@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs = {
     fish = {
@@ -38,5 +38,5 @@
     bat.enable = true;
   };
 
-  xdg.configFile."zellij".source = ./../../../configs/zellij;
+  xdg.configFile."zellij".source = lib.internal.get-config-path "zellij";
 }

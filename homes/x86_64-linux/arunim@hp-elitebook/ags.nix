@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   home.packages = with pkgs; [
     esbuild
@@ -7,6 +7,6 @@
 
   programs.ags = {
     enable = true;
-    configDir = ./../../../configs/ags;
+    configDir = builtins.toString (lib.internal.get-config-path "ags");
   };
 }
