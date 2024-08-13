@@ -1,9 +1,4 @@
-{
-  pkgs,
-  inputs,
-  config,
-  ...
-}:
+{ pkgs, ... }:
 {
   imports = [
     ./git.nix
@@ -12,7 +7,7 @@
     ./hyprland.nix
     ./themes.nix
     ./ags.nix
-    (import ./configs/nvim/module.nix { inherit inputs; })
+    ./neovim.nix
   ];
 
   home = {
@@ -21,8 +16,9 @@
       (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
       vlc
     ];
+
+    sessionPath = [ "$HOME/go/bin" ];
   };
 
-  programs.neovim.enable = true;
-  xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/homes/x86_64-linux/arunim@hp-elitebook/configs/nvim/";
+  programs.go.enable = true;
 }

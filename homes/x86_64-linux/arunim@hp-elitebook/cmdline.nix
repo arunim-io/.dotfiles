@@ -38,5 +38,5 @@
     bat.enable = true;
   };
 
-  xdg.configFile."zellij".source = ./configs/zellij;
+  xdg.configFile."zellij".source = ./../../../configs/zellij;
 }
