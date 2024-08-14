@@ -28,7 +28,7 @@ return {
       vim.opt.sessionoptions:append("globals")
     end,
     opts = {
-      projects = { "~/Projects/*", "~/.config/*" },
+      projects = { "~/Projects/*", "~/.config/*", "~/.dotfiles/" },
       last_session_on_startup = false,
     },
   },
