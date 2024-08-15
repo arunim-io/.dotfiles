@@ -22,3 +22,8 @@ vim.keymap.set(
   [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
   { desc = "Replace current word with regex" }
 )
+
+vim.keymap.set("n", "<leader>sh", "<C-w>H", { desc = "Split window horizontally" })
+vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
+vim.keymap.set("n", "<leader>sV", "<C-w>H", { desc = "Change horizontal splits to vertical" })
+vim.keymap.set("n", "<leader>sH", "<C-w>K", { desc = "Change vertical splits to horizontal" })
