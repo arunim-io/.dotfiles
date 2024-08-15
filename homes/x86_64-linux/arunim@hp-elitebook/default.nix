@@ -8,13 +8,16 @@
     ./themes.nix
     ./ags.nix
     ./neovim.nix
+    ./yazi.nix
   ];
 
   home = {
     stateVersion = "24.11";
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      xdg-utils
       vlc
+      loupe
     ];
 
     sessionPath = [ "$HOME/go/bin" ];
