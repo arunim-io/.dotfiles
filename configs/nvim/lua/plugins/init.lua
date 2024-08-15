@@ -45,32 +45,42 @@ return {
       watch_for_changes = true,
       view_options = { show_hidden = true },
     },
-    {
-      "echasnovski/mini.files",
-      version = false,
-      lazy = false,
-      init = function()
-        vim.g.loaded_netrwPlugin = 1
-        vim.g.loaded_netrw = 1
-      end,
-      keys = {
-        {
-          "<leader>pv",
-          function()
-            require("mini.files").open()
-          end,
-          desc = "Open file manager",
-        },
-      },
-      opts = {
-        mappings = {
-          synchronize = "s",
-          go_in = "<Right>",
-          go_out = "<Left>",
-          go_in_plus = "",
-          go_out_plus = "",
-        },
+  },
+  {
+    "echasnovski/mini.files",
+    version = false,
+    lazy = false,
+    init = function()
+      vim.g.loaded_netrwPlugin = 1
+      vim.g.loaded_netrw = 1
+    end,
+    keys = {
+      {
+        "<leader>pv",
+        function()
+          require("mini.files").open()
+        end,
+        desc = "Open file manager",
       },
     },
+    opts = {
+      mappings = {
+        synchronize = "s",
+        go_in = "<Right>",
+        go_out = "<Left>",
+        go_in_plus = "",
+        go_out_plus = "",
+      },
+    },
+  },
+  {
+    "OXY2DEV/helpview.nvim",
+    lazy = false,
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
   },
 }
