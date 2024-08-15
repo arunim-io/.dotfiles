@@ -31,5 +31,12 @@ return {
       end,
       desc = "Search using grep",
     },
+    {
+      "<leader>pb",
+      function()
+        require("telescope.builtin").buffers({ only_cwd = true, sort_lastused = true })
+      end,
+      desc = "Search files in the list of recent buffers",
+    },
   },
 }
