@@ -106,16 +106,23 @@ return {
   {
     "luckasRanarison/tailwind-tools.nvim",
     dependencies = "nvim-treesitter/nvim-treesitter",
+    config = true,
     init = function()
       vim.api.nvim_create_autocmd("BufWritePre", {
         desc = "Sort tailwind classes before format",
         callback = function()
+          ---@diagnostic disable-next-line: missing-parameter
           require("tailwind-tools.lsp").sort_classes()
         end,
       })
     end,
-    ---@type TailwindTools.Option
-    opts = {},
+    cond = function()
+      local files = vim.fs.find(function(name)
+        return name:match("^tailwind%.config%.(js|cjs|ts)$")
+      end, { path = vim.fn.getcwd(), type = "file" })
+
+      return #files >= 1
+    end,
   },
   {
     "ray-x/go.nvim",
