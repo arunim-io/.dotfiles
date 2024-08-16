@@ -71,14 +71,15 @@ return {
   { "j-hui/fidget.nvim", event = "LspAttach", config = true },
   {
     "jmbuhr/otter.nvim",
-    ft = { "nix", "md", "mdx" },
-    dependencies = {
+    depndencies = {
       "nvim-treesitter/nvim-treesitter",
       "neovim/nvim-lspconfig",
     },
     config = true,
     init = function()
-      require("otter").activate()
+      vim.api.nvim_create_user_command("OtterActivate", function()
+        require("otter").activate()
+      end, { desc = "Activate otter" })
     end,
   },
   {
