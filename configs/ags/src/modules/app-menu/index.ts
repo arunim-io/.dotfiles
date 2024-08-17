@@ -1,37 +1,37 @@
+import type { Application } from "resource:///com/github/Aylur/ags/service/applications.js";
+
 const { query } = await Service.import("applications");
 
 const WINDOW_NAME = "app-launcher";
 
 const closeApp = () => App.closeWindow(WINDOW_NAME);
 
-const getApps = () =>
-  query("").map((app) =>
-    Widget.Button({
-      on_clicked() {
-        closeApp();
-        app.launch();
-      },
-      attribute: app,
-      child: Widget.Box({
-        children: [
-          Widget.Icon({
-            icon: app.icon_name || "",
-            size: 42,
-          }),
-          Widget.Label({
-            class_name: "title",
-            label: app.name,
-            xalign: 0,
-            vpack: "center",
-            truncate: "end",
-          }),
-        ],
-      }),
+function AppButton(app: Application) {
+  return Widget.Button({
+    attribute: app,
+    on_clicked() {
+      closeApp();
+      app.launch();
+    },
+    child: Widget.Box({
+      children: [
+        Widget.Icon({ icon: app.icon_name || "", size: 42 }),
+        Widget.Label({
+          class_name: "title",
+          label: app.name,
+          xalign: 0,
+          vpack: "center",
+          truncate: "end",
+        }),
+      ],
     }),
-  );
+  });
+}
+
+const getApps = () => query("").map(AppButton);
 
 function AppLauncher() {
-  const spacing = 12;
+  const spacing = 10;
   let apps = getApps();
 
   const list = Widget.Box({
@@ -57,19 +57,26 @@ function AppLauncher() {
     },
   });
 
+  function resetSearchBar(focus = true) {
+    searchBar.text = "";
+    if (focus) searchBar.grab_focus();
+  }
+
   return Widget.Window({
     name: WINDOW_NAME,
     visible: false,
     keymode: "exclusive",
-    anchor: ["right", "top", "bottom"],
+    setup(self) {
+      self.keybind("Escape", () => {
+        closeApp();
+        resetSearchBar();
+      });
+    },
     child: Widget.Box({
       vertical: true,
       css: `margin: ${spacing * 2}px;`,
+      spacing: spacing * 2,
       children: [
-        Widget.Label({
-          label: "Applications",
-          css: "font-size: 25px; font-weight: 600;",
-        }),
         searchBar,
         Widget.Scrollable({
           hscroll: "never",
@@ -77,16 +84,16 @@ function AppLauncher() {
           child: list,
         }),
       ],
-    })
-      .keybind("Escape", closeApp)
-      .hook(App, (_, windowName: string, visible: boolean) => {
-        if (windowName !== WINDOW_NAME && visible) {
-          apps = getApps();
-          list.children = apps;
-          searchBar.text = "";
-          searchBar.grab_focus();
-        }
-      }),
+      setup(self) {
+        self.hook(App, (_, windowName: string, visible: boolean) => {
+          if (windowName !== WINDOW_NAME && visible) {
+            apps = getApps();
+            list.children = apps;
+            resetSearchBar();
+          }
+        });
+      },
+    }),
   });
 }
 

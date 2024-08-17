@@ -1,5 +1,6 @@
 { pkgs, config, ... }:
 {
+  home.packages = with pkgs; [ comma ];
   programs = {
     fish = {
       enable = true;
