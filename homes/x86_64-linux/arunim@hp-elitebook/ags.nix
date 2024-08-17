@@ -1,12 +1,11 @@
-{ pkgs, lib, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     esbuild
     brightnessctl
   ];
 
-  programs.ags = {
-    enable = true;
-    configDir = builtins.toString (lib.internal.get-config-path "ags");
-  };
+  programs.ags.enable = true;
+
+  xdg.configFile.ags.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/configs/ags/";
 }

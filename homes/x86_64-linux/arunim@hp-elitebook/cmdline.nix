@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, config, ... }:
 {
   programs = {
     fish = {
@@ -38,5 +38,5 @@
     bat.enable = true;
   };
 
-  xdg.configFile."zellij".source = lib.internal.get-config-path "zellij";
+  xdg.configFile."zellij".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/configs/zellij/";
 }
