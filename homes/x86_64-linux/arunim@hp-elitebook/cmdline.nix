@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 {
   home.packages = with pkgs; [ comma ];
+
   programs = {
     fish = {
       enable = true;
@@ -27,8 +28,6 @@
       ];
     };
 
-    zellij.enable = true;
-
     direnv = {
       enable = true;
       nix-direnv.enable = true;
@@ -37,7 +36,11 @@
     starship.enable = true;
     zoxide.enable = true;
     bat.enable = true;
-  };
 
-  xdg.configFile."zellij".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/configs/zellij/";
+    zellij = {
+      enable = true;
+      settings = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/configs/zellij/config.kdl";
+      layouts.default = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/configs/zellij/layouts/default.kdl";
+    };
+  };
 }
