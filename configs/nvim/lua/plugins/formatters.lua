@@ -26,6 +26,7 @@ return {
     },
     formatters_by_ft = {
       ["_"] = { "prettierd" },
+      css = { "prettierd" },
       lua = { "stylua" },
       nix = { "nixfmt" },
       sh = { "shfmt" },

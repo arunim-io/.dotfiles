@@ -85,6 +85,7 @@
             gnumake
             unzip
             xdg-utils
+            tree-sitter
           ];
         in
         systemPkgs ++ LSPkgs;
