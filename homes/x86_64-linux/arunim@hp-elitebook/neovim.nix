@@ -29,7 +29,7 @@
             selene
             stylua
             # html,css,json
-            vscode-langservers-extracted
+            internal.vscode-langservers-extracted
             emmet-language-server
             # shell
             bash-language-server
