@@ -32,6 +32,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     yazi.url = "github:sxyazi/yazi";
+    vscode-langservers-extracted = {
+      url = "github:arunim-io/vscode-langservers-extracted";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -48,7 +52,11 @@
 
       channels-config.allowUnfree = true;
 
-      overlays = with inputs; [ hyprland-contrib.overlays.default ];
+      overlays = with inputs; [
+        hyprland-contrib.overlays.default
+        neovim-nightly-overlay.overlays.default
+        vscode-langservers-extracted.overlays.default
+      ];
 
       systems.modules.nixos = with inputs; [
         nix-index-database.nixosModules.nix-index
