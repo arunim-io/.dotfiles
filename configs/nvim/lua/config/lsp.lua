@@ -56,6 +56,7 @@ setup_lsp("tailwindcss")
 setup_lsp("astro")
 setup_lsp("svelte")
 setup_lsp("biome")
+setup_lsp("htmx")
 
 setup_lsp("basedpyright", {
   settings = {

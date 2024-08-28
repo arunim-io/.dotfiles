@@ -10,6 +10,7 @@
   programs = {
     neovim = {
       enable = true;
+      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
@@ -30,6 +31,7 @@
             # html,css,json
             vscode-langservers-extracted
             emmet-language-server
+            htmx-lsp
             # shell
             bash-language-server
             shfmt

@@ -26,5 +26,7 @@ return {
     lua = { "selene" },
     nix = { "statix" },
     sh = { "shellcheck" },
+    htmldjango = { "djlint" },
+    djangohtml = { "djlint" },
   },
 }

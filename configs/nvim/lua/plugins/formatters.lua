@@ -32,6 +32,8 @@ return {
       sh = { "shfmt" },
       fish = { "fish_indent" },
       toml = { "taplo" },
+      htmldjango = { "djlint" },
+      djangohtml = { "djlint" },
     },
   },
 }
