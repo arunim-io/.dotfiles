@@ -4,13 +4,12 @@ local State = require("django.state")
 ---@class DjangoPlugin
 ---@field config DjangoPluginConfig
 ---@field state DjangoPluginState
-local DjangoPlugin = {}
+local Plugin = {}
 
-DjangoPlugin.__index = DjangoPlugin
+Plugin.__index = Plugin
 
---- Create an instance of [DjangoPlugin](lua://DjangoPlugin)
 ---@return DjangoPlugin
-function DjangoPlugin:new()
+function Plugin:new()
   local plugin = setmetatable({
     state = State:init(),
     config = Config:default(),
@@ -22,18 +21,16 @@ function DjangoPlugin:new()
 end
 
 ---@private
-function DjangoPlugin:init()
+function Plugin:init()
   self:detect()
 
-  vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-    group = vim.api.nvim_create_augroup("Django", { clear = false }),
-    buffer = vim.api.nvim_get_current_buf(),
-    command = [[set filetype=htmldjango]],
-  })
+  if self.config.create_autocmd then
+    require("django.autocmd").create_autocmd(self.config.create_autocmd)
+  end
 end
 
 ---@private
-function DjangoPlugin:detect()
+function Plugin:detect()
   local manage_py_found = vim.fn.filereadable(self.state.cwd .. "/manage.py") == 1
   local env_found = vim.env.DJANGO_SETTINGS_MODULE ~= nil
 
@@ -44,8 +41,8 @@ end
 
 ---@param config DjangoPluginConfig?
 ---@return DjangoPlugin
-function DjangoPlugin.setup(config)
-  local django = DjangoPlugin:new()
+function Plugin.setup(config)
+  local django = Plugin:new()
 
   if config ~= nil then
     table.insert(django, config)
@@ -54,4 +51,4 @@ function DjangoPlugin.setup(config)
   return django
 end
 
-return DjangoPlugin
+return Plugin
