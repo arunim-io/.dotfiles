@@ -1,10 +1,9 @@
----@class DjangoPluginConfig
+local Config = require("django.config")
+local State = require("django.state")
 
 ---@class DjangoPlugin
----@field private augroup integer
----@field private cwd string
----@field in_project boolean Whether Django is present.
 ---@field config DjangoPluginConfig
+---@field state DjangoPluginState
 local DjangoPlugin = {}
 
 DjangoPlugin.__index = DjangoPlugin
@@ -13,8 +12,8 @@ DjangoPlugin.__index = DjangoPlugin
 ---@return DjangoPlugin
 function DjangoPlugin:new()
   local plugin = setmetatable({
-    cwd = vim.fn.getcwd(),
-    augroup = vim.api.nvim_create_augroup("Django", { clear = false }),
+    state = State:init(),
+    config = Config:default(),
   }, self)
 
   plugin:init()
@@ -27,7 +26,7 @@ function DjangoPlugin:init()
   self:detect()
 
   vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-    group = self.augroup,
+    group = vim.api.nvim_create_augroup("Django", { clear = false }),
     buffer = vim.api.nvim_get_current_buf(),
     command = [[set filetype=htmldjango]],
   })
@@ -35,7 +34,7 @@ end
 
 ---@private
 function DjangoPlugin:detect()
-  local manage_py_found = vim.fn.filereadable(self.cwd .. "/manage.py") == 1
+  local manage_py_found = vim.fn.filereadable(self.state.cwd .. "/manage.py") == 1
   local env_found = vim.env.DJANGO_SETTINGS_MODULE ~= nil
 
   if manage_py_found or env_found then
