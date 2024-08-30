@@ -172,4 +172,5 @@ return {
       },
     },
   },
+  { "apunim-io/django.nvim", dev = true, opts = {} },
 }

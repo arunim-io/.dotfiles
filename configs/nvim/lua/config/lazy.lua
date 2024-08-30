@@ -23,4 +23,8 @@ require("lazy").setup({
     { import = "config/plugins" },
   },
   checker = { enabled = true },
+  dev = {
+    path = "~/Projects/",
+    fallback = true,
+  },
 })
