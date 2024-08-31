@@ -4,13 +4,13 @@ const { query } = await Service.import("applications");
 
 const WINDOW_NAME = "app-launcher";
 
-const closeApp = () => App.closeWindow(WINDOW_NAME);
+const closeWindow = () => App.closeWindow(WINDOW_NAME);
 
 function AppButton(app: Application) {
   return Widget.Button({
     attribute: app,
     on_clicked() {
-      closeApp();
+      closeWindow();
       app.launch();
     },
     child: Widget.Box({
@@ -30,7 +30,7 @@ function AppButton(app: Application) {
 
 const getApps = () => query("").map(AppButton);
 
-function AppLauncher() {
+export default function AppLauncher() {
   const spacing = 10;
   let apps = getApps();
 
@@ -44,10 +44,11 @@ function AppLauncher() {
     hexpand: true,
     css: `margin-top: ${spacing}px; margin-bottom: ${spacing}px;`,
     on_accept() {
-      const result = apps.filter((item) => item.visible)[0];
-      if (result) {
+      const matchedApp = apps.filter((app) => app.visible)[0];
+
+      if (matchedApp) {
         App.toggleWindow(WINDOW_NAME);
-        result.attribute.launch();
+        matchedApp.attribute.launch();
       }
     },
     on_change({ text }) {
@@ -68,7 +69,7 @@ function AppLauncher() {
     keymode: "exclusive",
     setup(self) {
       self.keybind("Escape", () => {
-        closeApp();
+        closeWindow();
         resetSearchBar();
       });
     },
@@ -89,12 +90,10 @@ function AppLauncher() {
           if (windowName !== WINDOW_NAME && visible) {
             apps = getApps();
             list.children = apps;
-            resetSearchBar();
+            resetSearchBar(visible);
           }
         });
       },
     }),
   });
 }
-
-export default AppLauncher;

@@ -184,11 +184,6 @@ in
             "${mainMod}, up, movefocus, u"
             "${mainMod}, down, movefocus, d"
 
-            "${mainMod}, F, exec, ${getExe pkgs.xfce.thunar}"
-            "${mainMod}, RETURN, exec, ${getExe config.programs.foot.package}"
-            "${mainMod}, M, exec, ${ags} -t app-launcher"
-            "${mainMod}, B, exec, ${getExe pkgs.brave}"
-            "${mainMod}, R, exec, ${ags} -q; ${ags}"
           ]
           ++ (builtins.concatLists (
             builtins.genList (
@@ -222,7 +217,13 @@ in
             ", XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
             ", XF86MonBrightnessUp, exec, ${brightnessctl} set +10%"
             ", XF86MonBrightnessDown, exec, ${brightnessctl} set 10%-"
-            # "$mod SHIFT, Q, exec, ${wlogout}/bin/wlogout"
+
+            "${mainMod}, F, exec, ${getExe pkgs.xfce.thunar}"
+            "${mainMod}, RETURN, exec, ${getExe config.programs.foot.package}"
+            "${mainMod}, M, exec, ${ags} -t app-launcher"
+            "${mainMod}, B, exec, ${getExe pkgs.brave}"
+            "${mainMod}, R, exec, ${ags} -q; ${ags}"
+            "${mainMod} SHIFT, Q, exec, ${ags} -t power-menu"
             ", PRINT, exec, ${grimblast} --notify --freeze copysave screen"
             "${mainMod}, PRINT, exec, ${grimblast} --notify --freeze copysave window"
             "${mainMod} SHIFT, PRINT, exec, ${grimblast} --notify --freeze copysave area"
