@@ -6,7 +6,7 @@ async function compileAndLoad() {
   await Utils.execAsync([
     "esbuild",
     "--bundle",
-    `${App.configDir}/src/main.ts`,
+    `${App.configDir}/config.ts`,
     "--format=esm",
     `--outfile=${target}`,
     "--external:resource://*",
