@@ -2,7 +2,7 @@ import Audio from "resource:///com/github/Aylur/ags/service/audio.js";
 import Battery from "resource:///com/github/Aylur/ags/service/battery.js";
 import Hyprland from "resource:///com/github/Aylur/ags/service/hyprland.js";
 import SystemTray from "resource:///com/github/Aylur/ags/service/systemtray.js";
-import Brightness from "../../services/brightness";
+import Brightness from "../services/brightness";
 
 const ram = Variable(0, {
   poll: [
@@ -235,12 +235,12 @@ export default function StatusBar(monitor = 0) {
       marginRight: 10,
       marginStart: 5,
       marginEnd: 5,
-      start_widget: Widget.Box({
+      startWidget: Widget.Box({
         hpack: "start",
         spacing: 10,
         children: [WorkspaceList(), CurrentWindowTitle],
       }),
-      end_widget: Widget.Box({
+      endWidget: Widget.Box({
         hpack: "end",
         spacing: 10,
         children: [

@@ -71,7 +71,6 @@ in
     systemd.variables = [ "--all" ];
     settings =
       let
-        mainMod = "SUPER";
         ags = getExe' pkgs.ags "ags";
       in
       {
@@ -173,19 +172,10 @@ in
 
         gestures.workspace_swipe = false;
 
-        bind =
-          [
-            "${mainMod}, Q, killactive,"
-            "${mainMod}, V, togglefloating,"
-            "${mainMod}, P, pseudo," # dwindle
-            "${mainMod}, J, togglesplit," # dwindle
-            "${mainMod}, left, movefocus, l"
-            "${mainMod}, right, movefocus, r"
-            "${mainMod}, up, movefocus, u"
-            "${mainMod}, down, movefocus, d"
+        "$mod" = "SUPER";
 
-          ]
-          ++ (builtins.concatLists (
+        bind =
+          (builtins.concatLists (
             builtins.genList (
               x:
               let
@@ -196,17 +186,26 @@ in
                   builtins.toString (x + 1 - (c * 10));
               in
               [
-                "${mainMod}, ${ws}, workspace, ${toString (x + 1)}"
-                "${mainMod} SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+                "$mod, ${ws}, workspace, ${toString (x + 1)}"
+                "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
               ]
             ) 10
           ))
           ++ [
-            "${mainMod}, S, togglespecialworkspace, magic"
-            "${mainMod} SHIFT, S, movetoworkspace, special:magic"
+            "$mod, Q, killactive,"
+            "$mod, V, togglefloating,"
+            "$mod, P, pseudo," # dwindle
+            "$mod, J, togglesplit," # dwindle
+            "$mod, left, movefocus, l"
+            "$mod, right, movefocus, r"
+            "$mod, up, movefocus, u"
+            "$mod, down, movefocus, d"
 
-            "${mainMod}, mouse_down, workspace, e+1"
-            "${mainMod}, mouse_up, workspace, e-1"
+            "$mod, S, togglespecialworkspace, magic"
+            "$mod SHIFT, S, movetoworkspace, special:magic"
+
+            "$mod, mouse_down, workspace, e+1"
+            "$mod, mouse_up, workspace, e-1"
 
             ", XF86AudioPlay, exec, ${playerctl} play-pause"
             ", XF86AudioNext, exec, ${playerctl} next"
@@ -218,19 +217,19 @@ in
             ", XF86MonBrightnessUp, exec, ${brightnessctl} set +10%"
             ", XF86MonBrightnessDown, exec, ${brightnessctl} set 10%-"
 
-            "${mainMod}, F, exec, ${getExe pkgs.xfce.thunar}"
-            "${mainMod}, RETURN, exec, ${getExe config.programs.foot.package}"
-            "${mainMod}, M, exec, ${ags} -t app-launcher"
-            "${mainMod}, B, exec, ${getExe pkgs.brave}"
-            "${mainMod}, R, exec, ${ags} -q; ${ags}"
-            "${mainMod} SHIFT, Q, exec, ${ags} -t power-menu"
+            "$mod, M, exec, ${ags} -t app-launcher"
+            "$mod SHIFT, Q, exec, ${ags} -t power-menu"
+            "$mod, F, exec, ${getExe pkgs.xfce.thunar}"
+            "$mod, RETURN, exec, ${getExe config.programs.foot.package}"
+            "$mod, B, exec, ${getExe pkgs.brave}"
+            "$mod, R, exec, ${ags} -q; ${ags}"
             ", PRINT, exec, ${grimblast} --notify --freeze copysave screen"
-            "${mainMod}, PRINT, exec, ${grimblast} --notify --freeze copysave window"
-            "${mainMod} SHIFT, PRINT, exec, ${grimblast} --notify --freeze copysave area"
+            "$mod, PRINT, exec, ${grimblast} --notify --freeze copysave window"
+            "$mod SHIFT, PRINT, exec, ${grimblast} --notify --freeze copysave area"
           ];
         bindm = [
-          "${mainMod}, mouse:272, movewindow"
-          "${mainMod}, mouse:273, resizewindow"
+          "$mod, mouse:272, movewindow"
+          "$mod, mouse:273, resizewindow"
         ];
 
         windowrulev2 = [ "suppressevent maximize, class:.*" ];
