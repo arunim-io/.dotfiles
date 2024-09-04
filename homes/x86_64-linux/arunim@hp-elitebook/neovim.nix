@@ -42,6 +42,7 @@
             python3
             basedpyright
             ruff
+            djlint
             # javascript
             nodejs_20
             corepack_20

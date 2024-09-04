@@ -108,6 +108,14 @@ return {
     "luckasRanarison/tailwind-tools.nvim",
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = true,
+    event = "LspAttach",
+    cond = function()
+      local clients = vim.lsp.get_clients({ name = "tailwindcss" })
+      if #clients > 0 and clients[1].initialized then
+        return true
+      end
+      return false
+    end,
     init = function()
       vim.api.nvim_create_autocmd("BufWritePre", {
         desc = "Sort tailwind classes before format",
@@ -116,13 +124,6 @@ return {
           require("tailwind-tools.lsp").sort_classes()
         end,
       })
-    end,
-    cond = function()
-      local files = vim.fs.find(function(name)
-        return name:match("^tailwind%.config%.(js|cjs|ts)$")
-      end, { path = vim.fn.getcwd(), type = "file" })
-
-      return #files >= 1
     end,
   },
   {
