@@ -9,7 +9,6 @@
     ./bluetooth.nix
     ./user.nix
     ./sops.nix
-    ./shell.nix
     ./fonts.nix
     ./hyprland.nix
   ];
@@ -20,4 +19,9 @@
   i18n.defaultLocale = "en_GB.UTF-8";
 
   services.flatpak.enable = true;
+
+  programs.fish = {
+    enable = true;
+    useBabelfish = true;
+  };
 }
