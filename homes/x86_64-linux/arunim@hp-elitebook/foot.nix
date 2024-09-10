@@ -4,8 +4,8 @@
     enable = true;
     server.enable = true;
     settings = {
-      shell = lib.getExe pkgs.fish;
       main = {
+        shell = lib.getExe pkgs.fish;
         font = "JetBrainsMono NF";
         box-drawings-uses-font-glyphs = true;
         dpi-aware = true;
