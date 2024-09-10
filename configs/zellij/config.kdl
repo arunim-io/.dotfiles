@@ -1,5 +1,7 @@
 simplified_ui true
 
+default_shell "fish"
+
 pane_frames false
 
 pane_viewport_serialization true
