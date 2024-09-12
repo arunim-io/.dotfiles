@@ -1,5 +1,7 @@
 local api = require("zellij.api")
 
+local M = {}
+
 ---@class SubCommand
 ---@field impl fun(args: string[], opts: table)
 ---@field complete? fun(subcmd_arg_lead: string): string[]
@@ -43,7 +45,7 @@ local function cmd(opts)
   subcommand.impl(args, opts)
 end
 
-local function create_nvim_cmd()
+function M.create_nvim_cmd()
   vim.api.nvim_create_user_command("Zellij", cmd, {
     nargs = "+",
     bang = true,
@@ -68,4 +70,4 @@ local function create_nvim_cmd()
   })
 end
 
-return { create_nvim_cmd = create_nvim_cmd }
+return M

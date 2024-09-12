@@ -1,8 +1,7 @@
+local api = require("zellij.api")
 local cmd = require("zellij.cmd")
 
-local zellij_running = vim.env.ZELLIJ
-
-if zellij_running then
+if api.is_running then
   cmd.create_nvim_cmd()
 
   local directions = { "left", "right", "up", "down" }
@@ -15,4 +14,16 @@ if zellij_running then
       { desc = string.format("Navigate %s", direction) }
     )
   end
+
+  vim.api.nvim_create_autocmd({ "VimEnter", "WinEnter" }, {
+    callback = function()
+      api.switch_mode("locked")
+    end,
+  })
+
+  vim.api.nvim_create_autocmd({ "VimLeave" }, {
+    callback = function()
+      api.switch_mode("normal")
+    end,
+  })
 end
