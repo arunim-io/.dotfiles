@@ -9,6 +9,7 @@
     ./ags.nix
     ./neovim.nix
     ./yazi.nix
+    ./tmux.nix
   ];
 
   home = {
