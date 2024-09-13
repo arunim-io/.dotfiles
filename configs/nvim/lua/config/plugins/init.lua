@@ -42,4 +42,61 @@ return {
       },
     },
   },
+  {
+    "aserowy/tmux.nvim",
+    opts = {
+      navigation = { enable_default_keybindings = false },
+      resize = { enable_default_keybindings = false },
+    },
+    keys = {
+      {
+        "<C-Up>",
+        function()
+          require("tmux").move_top()
+        end,
+      },
+      {
+        "<C-Down>",
+        function()
+          require("tmux").move_bottom()
+        end,
+      },
+      {
+        "<C-Left>",
+        function()
+          require("tmux").move_left()
+        end,
+      },
+      {
+        "<C-Right>",
+        function()
+          require("tmux").move_right()
+        end,
+      },
+      {
+        "<M-Up>",
+        function()
+          require("tmux").resize_top()
+        end,
+      },
+      {
+        "<M-Down>",
+        function()
+          require("tmux").resize_bottom()
+        end,
+      },
+      {
+        "<M-Left>",
+        function()
+          require("tmux").resize_left()
+        end,
+      },
+      {
+        "<M-Right>",
+        function()
+          require("tmux").resize_right()
+        end,
+      },
+    },
+  },
 }
