@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  inputs,
   ...
 }:
 {
@@ -92,7 +91,7 @@
         bind-key -T copy-mode-vi v send-keys -X begin-selection
         bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
-        bind t display-popup -E "${tms} switch"
+        bind s display-popup -E "${tms} switch"
         set -ga status-right " #(${tms} sessions)"
       '';
   };
