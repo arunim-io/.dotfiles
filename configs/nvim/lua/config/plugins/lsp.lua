@@ -44,13 +44,6 @@ return {
     end,
   },
   {
-    "zeioth/garbage-day.nvim",
-    enabled = false,
-    dependencies = "neovim/nvim-lspconfig",
-    event = { "VeryLazy", "LspAttach" },
-    config = true,
-  },
-  {
     "folke/trouble.nvim",
     event = "LspAttach",
     cmd = "Trouble",

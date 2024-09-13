@@ -19,4 +19,14 @@ return {
     dependencies = "nvim-treesitter/nvim-treesitter",
     opts = { opts = { enable_close_on_slash = true } },
   },
+  {
+    "OXY2DEV/helpview.nvim",
+    lazy = false,
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
+  {
+    "OXY2DEV/markview.nvim",
+    ft = { "md" },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+  },
 }
