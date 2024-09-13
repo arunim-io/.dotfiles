@@ -1,4 +1,10 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
 {
   home.packages = with pkgs; [ comma ];
 
@@ -41,6 +47,24 @@
       enable = true;
       settings = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/configs/zellij/config.kdl";
       layouts.default = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/configs/zellij/layouts/default.kdl";
+    };
+
+    tmux = {
+      enable = true;
+      shell = lib.getExe config.programs.fish.package;
+      terminal = "tmux-256color";
+      keyMode = "vi";
+      prefix = "M-a";
+      mouse = true;
+      escapeTime = 0;
+      historyLimit = 10000;
+      baseIndex = 1;
+      extraConfig = builtins.readFile "${inputs.self}/configs/tmux/tmux.conf";
+      plugins = with pkgs.tmuxPlugins; [
+        better-mouse-mode
+        yank
+        fzf-tmux-url
+      ];
     };
   };
 }
