@@ -101,23 +101,6 @@ return {
     "luckasRanarison/tailwind-tools.nvim",
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = true,
-    event = "LspAttach",
-    cond = function()
-      local clients = vim.lsp.get_clients({ name = "tailwindcss" })
-      if #clients > 0 and clients[1].initialized then
-        return true
-      end
-      return false
-    end,
-    init = function()
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        desc = "Sort tailwind classes before format",
-        callback = function()
-          ---@diagnostic disable-next-line: missing-parameter
-          require("tailwind-tools.lsp").sort_classes()
-        end,
-      })
-    end,
   },
   {
     "ray-x/go.nvim",

@@ -52,7 +52,25 @@ setup_lsp("cssls", {
     provideFormatter = false,
   },
 })
-setup_lsp("tailwindcss")
+setup_lsp("tailwindcss", {
+  on_attach = function()
+    local plugin_name = "tailwind-tools"
+
+    if not package.loaded[plugin_name] then
+      require("lazy").load({ plugins = { plugin_name } })
+    end
+  end,
+  settings = {
+    tailwindCSS = {
+      experimental = {
+        classRegex = {
+          { "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
+          { "cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+        },
+      },
+    },
+  },
+})
 setup_lsp("astro")
 setup_lsp("svelte")
 setup_lsp("biome")
@@ -79,4 +97,46 @@ vim.api.nvim_create_autocmd("LspAttach", {
       client.server_capabilities.hoverProvider = false
     end
   end,
+})
+
+setup_lsp("eslint", {
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml",
+    "toml",
+    "xml",
+    "gql",
+    "graphql",
+    "astro",
+    "svelte",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss",
+  },
+  settings = {
+    rulesCustomizations = {
+      { rule = "style/*", severity = "off", fixable = true },
+      { rule = "format/*", severity = "off", fixable = true },
+      { rule = "*-indent", severity = "off", fixable = true },
+      { rule = "*-spacing", severity = "off", fixable = true },
+      { rule = "*-spaces", severity = "off", fixable = true },
+      { rule = "*-order", severity = "off", fixable = true },
+      { rule = "*-dangle", severity = "off", fixable = true },
+      { rule = "*-newline", severity = "off", fixable = true },
+      { rule = "*quotes", severity = "off", fixable = true },
+      { rule = "*semi", severity = "off", fixable = true },
+    },
+  },
 })

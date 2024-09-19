@@ -1,3 +1,17 @@
+---@param bufnr integer
+---@param ... string
+---@return string
+local function first(bufnr, ...)
+  local conform = require("conform")
+  for i = 1, select("#", ...) do
+    local formatter = select(i, ...)
+    if conform.get_formatter_info(formatter, bufnr).available then
+      return formatter
+    end
+  end
+  return select(1, ...)
+end
+
 ---@type LazySpec
 return {
   "stevearc/conform.nvim",
@@ -17,16 +31,13 @@ return {
   },
   ---@type conform.setupOpts
   opts = {
-    format_on_save = {
-      timeout_ms = 500,
-    },
     default_format_opts = {
-      timeout_ms = 500,
       lsp_format = "fallback",
     },
     formatters_by_ft = {
-      ["_"] = { "prettierd" },
-      css = { "prettierd" },
+      ["_"] = function(bufnr)
+        return { first(bufnr, "prettierd", "prettier"), "injected" }
+      end,
       lua = { "stylua" },
       nix = { "nixfmt" },
       sh = { "shfmt" },
