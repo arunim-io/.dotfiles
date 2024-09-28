@@ -7,7 +7,6 @@
     ./hyprland.nix
     ./themes.nix
     ./ags.nix
-    # ./neovim.nix
     ./yazi.nix
     ./tmux.nix
   ];
