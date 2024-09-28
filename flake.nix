@@ -27,6 +27,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nvim = {
+      url = "github:arunim-io/nvim";
+    };
     ags = {
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -68,6 +71,7 @@
         nix-index-database.hmModules.nix-index
         hyprland.homeManagerModules.default
         ags.homeManagerModules.default
+        nvim.homeManagerModules.default
       ];
     };
 

@@ -7,7 +7,7 @@
     ./hyprland.nix
     ./themes.nix
     ./ags.nix
-    ./neovim.nix
+    # ./neovim.nix
     ./yazi.nix
     ./tmux.nix
   ];
@@ -25,4 +25,6 @@
   };
 
   programs.go.enable = true;
+
+  neovim-config.enable = true;
 }
