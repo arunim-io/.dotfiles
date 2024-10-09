@@ -25,5 +25,5 @@
 
   programs.go.enable = true;
 
-  neovim-config.enable = true;
+  anc.enable = true;
 }

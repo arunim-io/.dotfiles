@@ -37,10 +37,10 @@
     zoxide.enable = true;
     bat.enable = true;
 
-    zellij = {
-      enable = true;
-      settings = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/configs/zellij/config.kdl";
-      layouts.default = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/configs/zellij/layouts/default.kdl";
-    };
+    # zellij = {
+    #   enable = true;
+    #   settings = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/configs/zellij/config.kdl";
+    #   layouts.default = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/configs/zellij/layouts/default.kdl";
+    # };
   };
 }
