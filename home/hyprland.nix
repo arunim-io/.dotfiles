@@ -2,6 +2,8 @@
   lib,
   config,
   pkgs,
+  inputs,
+  system,
   ...
 }:
 let
@@ -21,11 +23,9 @@ in
 
   programs.hyprlock = {
     enable = true;
-    settings = {
-      general = {
-        ignore_empty_input = true;
-        hide_cursor = true;
-      };
+    settings.general = {
+      ignore_empty_input = true;
+      hide_cursor = true;
     };
   };
 
@@ -71,7 +71,7 @@ in
     systemd.variables = [ "--all" ];
     settings =
       let
-        ags = getExe' pkgs.ags "ags";
+        ags = inputs.ags.packages.${system}.default;
       in
       {
         monitor = ",preferred,auto,auto";
