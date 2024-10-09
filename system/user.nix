@@ -18,10 +18,7 @@ in
     ];
   };
 
-  nix.settings.trusted-users = [
-    "root"
-    username
-  ];
+  nix.settings.trusted-users = [ username ];
 
   environment.systemPackages = with pkgs; [ git ];
 
